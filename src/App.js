@@ -203,7 +203,7 @@ function AppContent() {
       case "adgroups": return <AdGroups adGroups={adGroups} setAdGroups={setAdGroups} campaigns={campaigns} connected={connected} onGoToSettings={() => setPage("settings")} />;
       case "reports": return <Reports metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} />;
       case "business-centers": return <BusinessCenters bcs={bcs} setBcs={setBcs} showToast={showToast} />;
-      case "settings": return <Settings config={config} setConfig={setConfig} onConnect={handleOAuthConnect} />;
+      case "settings": return <Settings config={config} connected={connected} onConnect={handleOAuthConnect} onDisconnect={() => { setConnected(false); setCampaigns([]); setAdGroups([]); setMetrics(null); }} user={user} />;
       default: return null;
     }
   };
