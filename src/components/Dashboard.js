@@ -1,7 +1,7 @@
-import { MetricCard, statusBadge, EmptyState } from "./shared";
+import { MetricCard, statusBadge, EmptyState, DateRangePicker } from "./shared";
 import { useT } from "../i18n";
 
-export default function Dashboard({ campaigns, metrics, connected, onGoToSettings }) {
+export default function Dashboard({ campaigns, metrics, connected, onGoToSettings, dateRange, onDateChange }) {
   const { t } = useT();
   const d = (key) => t(`dashboard.${key}`);
 
@@ -9,7 +9,7 @@ export default function Dashboard({ campaigns, metrics, connected, onGoToSetting
     return (
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 6px" }}>{d("title")}</h1>
-        <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 24px" }}>{d("subtitle")}</p>
+        <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 16px" }}>{d("subtitle")}</p>
         <EmptyState t={t} onGoToSettings={onGoToSettings} />
       </div>
     );
@@ -18,7 +18,12 @@ export default function Dashboard({ campaigns, metrics, connected, onGoToSetting
   return (
     <div>
       <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 6px" }}>{d("title")}</h1>
-      <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 24px" }}>{d("subtitle")}</p>
+      <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 12px" }}>
+        {dateRange ? `${dateRange.startDate} → ${dateRange.endDate}` : d("subtitle")}
+      </p>
+      {dateRange && onDateChange && (
+        <DateRangePicker value={dateRange} onChange={onDateChange} />
+      )}
 
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 24 }}>
         <MetricCard label={d("impressions")} value={metrics.impressions} color="#6366f1" />

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { statusBadge, EmptyState } from "./shared";
+import { statusBadge, EmptyState, DateRangePicker } from "./shared";
 import { useT } from "../i18n";
 
-export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSettings }) {
+export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSettings, dateRange, onDateChange }) {
   const { t } = useT();
   const c = (key) => t(`campaigns.${key}`);
   const [showModal, setShowModal] = useState(false);
@@ -29,11 +29,18 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
     setForm({ campaign_name: "", budget: "", objective_type: "CONVERSIONS" });
   };
 
+  const filteredCampaigns = dateRange
+    ? campaigns.filter(camp => {
+        if (!camp.create_time) return true;
+        return camp.create_time >= dateRange.startDate && camp.create_time <= dateRange.endDate;
+      })
+    : campaigns;
+
   if (!connected || campaigns.length === 0) {
     return (
       <div>
         <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px" }}>{c("title")}</h1>
-        <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 24px" }}>{c("subtitle")(0)}</p>
+        <p style={{ color: "#6b7280", fontSize: 14, margin: "0 0 16px" }}>{c("subtitle")(0)}</p>
         <EmptyState t={t} onGoToSettings={onGoToSettings} />
       </div>
     );
@@ -41,16 +48,20 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 700, margin: "0 0 4px" }}>{c("title")}</h1>
-          <p style={{ color: "#6b7280", fontSize: 14, margin: 0 }}>{c("subtitle")(campaigns.length)}</p>
+          <p style={{ color: "#6b7280", fontSize: 14, margin: 0 }}>{c("subtitle")(filteredCampaigns.length)}</p>
         </div>
         <button onClick={() => setShowModal(true)} style={{
           background: "#fe2c55", color: "#fff", border: "none", borderRadius: 8,
           padding: "10px 18px", fontSize: 13, fontWeight: 600, cursor: "pointer"
         }}>{c("newCampaign")}</button>
       </div>
+
+      {dateRange && onDateChange && (
+        <DateRangePicker value={dateRange} onChange={onDateChange} />
+      )}
 
       {showModal && (
         <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: 24, marginBottom: 24 }}>
@@ -101,8 +112,8 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
             </tr>
           </thead>
           <tbody>
-            {campaigns.map((camp, i) => (
-              <tr key={camp.campaign_id} style={{ borderBottom: i < campaigns.length - 1 ? "1px solid #f3f4f6" : "none" }}>
+            {filteredCampaigns.map((camp, i) => (
+              <tr key={camp.campaign_id} style={{ borderBottom: i < filteredCampaigns.length - 1 ? "1px solid #f3f4f6" : "none" }}>
                 <td style={{ padding: "12px 16px", fontWeight: 500 }}>{camp.campaign_name}</td>
                 <td style={{ padding: "12px 16px", color: "#6b7280" }}>{camp.objective_type}</td>
                 <td style={{ padding: "12px 16px", textAlign: "right" }}>R$ {camp.budget.toLocaleString("pt-BR")}</td>

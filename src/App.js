@@ -41,6 +41,11 @@ function AppContent() {
   const [bcs, setBcs] = useState([]);
   const [toast, setToast] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [dateRange, setDateRange] = useState(() => {
+    const today = new Date();
+    const d = new Date(today); d.setDate(d.getDate() - 29);
+    return { preset: "last30days", startDate: d.toISOString().split("T")[0], endDate: today.toISOString().split("T")[0] };
+  });
 
   const showToast = useCallback((msg, type = "success") => {
     setToast({ msg, type });
@@ -94,11 +99,8 @@ function AppContent() {
       if (campaignsData.length > 0) setCampaigns(campaignsData);
       if (adGroupsData.length > 0) setAdGroups(adGroupsData);
 
-      const today = new Date();
-      const thirtyDaysAgo = new Date(today);
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      const endDate = today.toISOString().split("T")[0];
-      const startDate = thirtyDaysAgo.toISOString().split("T")[0];
+      const startDate = dateRange.startDate;
+      const endDate = dateRange.endDate;
 
       const reportData = await api.getReport(config.accessToken, config.advertiserId, startDate, endDate);
       if (reportData.length > 0) {
@@ -125,7 +127,7 @@ function AppContent() {
     } finally {
       setLoading(false);
     }
-  }, [connected, config.accessToken, config.advertiserId, showToast, t]);
+  }, [connected, config.accessToken, config.advertiserId, dateRange, showToast, t]);
 
   useEffect(() => {
     fetchData();
@@ -186,8 +188,8 @@ function AppContent() {
   // Step 3: Connected → Main app
   const renderPage = () => {
     switch (page) {
-      case "dashboard": return <Dashboard campaigns={campaigns} metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} />;
-      case "campaigns": return <Campaigns campaigns={campaigns} setCampaigns={setCampaigns} connected={connected} onGoToSettings={() => setPage("settings")} />;
+      case "dashboard": return <Dashboard campaigns={campaigns} metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} dateRange={dateRange} onDateChange={setDateRange} />;
+      case "campaigns": return <Campaigns campaigns={campaigns} setCampaigns={setCampaigns} connected={connected} onGoToSettings={() => setPage("settings")} dateRange={dateRange} onDateChange={setDateRange} />;
       case "adgroups": return <AdGroups adGroups={adGroups} setAdGroups={setAdGroups} campaigns={campaigns} connected={connected} onGoToSettings={() => setPage("settings")} />;
       case "reports": return <Reports metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} />;
       case "business-centers": return <BusinessCenters bcs={bcs} setBcs={setBcs} showToast={showToast} />;

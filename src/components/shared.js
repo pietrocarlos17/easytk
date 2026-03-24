@@ -1,3 +1,63 @@
+function fmtDate(d) { return d.toISOString().split("T")[0]; }
+
+export function DateRangePicker({ value, onChange }) {
+  const today = new Date();
+  const presets = [
+    { key: "today", label: "Hoje" },
+    { key: "yesterday", label: "Ontem" },
+    { key: "last7days", label: "Últ. 7d" },
+    { key: "last30days", label: "Últ. 30d" },
+    { key: "thisMonth", label: "Este mês" },
+    { key: "custom", label: "Personalizado" },
+  ];
+
+  function applyPreset(key) {
+    const todayStr = fmtDate(today);
+    if (key === "today") return onChange({ preset: key, startDate: todayStr, endDate: todayStr });
+    if (key === "yesterday") {
+      const d = new Date(today); d.setDate(d.getDate() - 1); const s = fmtDate(d);
+      return onChange({ preset: key, startDate: s, endDate: s });
+    }
+    if (key === "last7days") {
+      const d = new Date(today); d.setDate(d.getDate() - 6);
+      return onChange({ preset: key, startDate: fmtDate(d), endDate: todayStr });
+    }
+    if (key === "last30days") {
+      const d = new Date(today); d.setDate(d.getDate() - 29);
+      return onChange({ preset: key, startDate: fmtDate(d), endDate: todayStr });
+    }
+    if (key === "thisMonth") {
+      const d = new Date(today.getFullYear(), today.getMonth(), 1);
+      return onChange({ preset: key, startDate: fmtDate(d), endDate: todayStr });
+    }
+    if (key === "custom") return onChange({ ...value, preset: "custom" });
+  }
+
+  return (
+    <div style={{ display: "flex", gap: 6, alignItems: "center", flexWrap: "wrap", marginBottom: 20 }}>
+      {presets.map(p => (
+        <button key={p.key} onClick={() => applyPreset(p.key)} style={{
+          padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 500,
+          cursor: "pointer", border: "none", transition: "all .15s",
+          background: value.preset === p.key ? "#fe2c55" : "#f3f4f6",
+          color: value.preset === p.key ? "#fff" : "#374151",
+        }}>{p.label}</button>
+      ))}
+      {value.preset === "custom" && (
+        <>
+          <input type="date" value={value.startDate} max={value.endDate}
+            onChange={e => onChange({ ...value, startDate: e.target.value })}
+            style={{ padding: "4px 8px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 12 }} />
+          <span style={{ color: "#6b7280", fontSize: 12 }}>até</span>
+          <input type="date" value={value.endDate} min={value.startDate}
+            onChange={e => onChange({ ...value, endDate: e.target.value })}
+            style={{ padding: "4px 8px", border: "1px solid #d1d5db", borderRadius: 8, fontSize: 12 }} />
+        </>
+      )}
+    </div>
+  );
+}
+
 export function statusBadge(status, t) {
   const active = status === "ENABLE";
   return (
