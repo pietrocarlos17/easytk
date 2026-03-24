@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { statusBadge, EmptyState, DateRangePicker } from "./shared";
 import { useT } from "../i18n";
+import * as api from "../tiktokApi";
 
 const OBJECTIVES = [
   {
@@ -47,12 +48,13 @@ const EMPTY_FORM = {
   cbo: false,
 };
 
-export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSettings, dateRange, onDateChange }) {
+export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSettings, dateRange, onDateChange, config, showToast }) {
   const { t } = useT();
   const c = (key) => t(`campaigns.${key}`);
   const [showModal, setShowModal] = useState(false);
-  const [step, setStep] = useState(1); // 1 = objetivo, 2 = configurações
+  const [step, setStep] = useState(1);
   const [form, setForm] = useState(EMPTY_FORM);
+  const [creating, setCreating] = useState(false);
 
   const filteredCampaigns = dateRange
     ? campaigns.filter(camp => {
@@ -82,22 +84,54 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
   const openModal = () => { setForm(EMPTY_FORM); setStep(1); setShowModal(true); };
   const closeModal = () => setShowModal(false);
 
-  const handleCreate = () => {
+  const handleCreate = async () => {
     if (!form.campaign_name || !form.objective_type) return;
     if (form.budget_mode !== "BUDGET_MODE_INFINITE" && !form.budget) return;
-    const newCampaign = {
-      campaign_id: String(Date.now()),
-      campaign_name: form.campaign_name,
-      status: "DISABLE",
-      budget: form.budget_mode === "BUDGET_MODE_INFINITE" ? 0 : Number(form.budget),
-      budget_mode: form.budget_mode,
-      objective_type: form.objective_type,
-      special_industries: form.special_industries,
-      cbo: form.cbo,
-      create_time: new Date().toISOString().split("T")[0],
-    };
-    setCampaigns(prev => [newCampaign, ...prev]);
-    closeModal();
+
+    setCreating(true);
+    try {
+      const payload = {
+        campaign_name: form.campaign_name,
+        objective_type: form.objective_type,
+        budget_mode: form.budget_mode,
+        ...(form.budget_mode !== "BUDGET_MODE_INFINITE" && { budget: Number(form.budget) }),
+        ...(form.special_industries.length > 0 && { special_industries: form.special_industries }),
+        ...(form.cbo && { campaign_budget_optimize_on: true }),
+      };
+
+      // Se tiver accessToken real, cria no TikTok
+      if (config?.accessToken && config?.advertiserId) {
+        const result = await api.createCampaign(config.accessToken, config.advertiserId, payload);
+        const newCampaign = {
+          campaign_id: result.campaign_id || String(Date.now()),
+          campaign_name: form.campaign_name,
+          status: "DISABLE",
+          budget: form.budget_mode === "BUDGET_MODE_INFINITE" ? 0 : Number(form.budget),
+          budget_mode: form.budget_mode,
+          objective_type: form.objective_type,
+          create_time: new Date().toISOString().split("T")[0],
+        };
+        setCampaigns(prev => [newCampaign, ...prev]);
+        showToast?.("Campanha criada no TikTok Ads!");
+      } else {
+        // Modo demo — salva só localmente
+        setCampaigns(prev => [{
+          campaign_id: String(Date.now()),
+          campaign_name: form.campaign_name,
+          status: "DISABLE",
+          budget: form.budget_mode === "BUDGET_MODE_INFINITE" ? 0 : Number(form.budget),
+          budget_mode: form.budget_mode,
+          objective_type: form.objective_type,
+          create_time: new Date().toISOString().split("T")[0],
+        }, ...prev]);
+        showToast?.("Campanha criada localmente (modo demo)");
+      }
+      closeModal();
+    } catch (err) {
+      showToast?.(`Erro ao criar campanha: ${err.message}`, "error");
+    } finally {
+      setCreating(false);
+    }
   };
 
   const toggleIndustry = (val) => {
@@ -366,24 +400,31 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
                   </div>
                 </div>
 
+                {/* Aviso modo demo */}
+                {(!config?.accessToken || !config?.advertiserId) && (
+                  <div style={{ padding: "10px 14px", background: "#fffbeb", border: "1px solid #fde68a", borderRadius: 8, fontSize: 12, color: "#92400e" }}>
+                    ⚠️ Modo demo — a campanha será salva apenas localmente. Conecte sua conta TikTok para criar no Ads Manager.
+                  </div>
+                )}
+
                 {/* Actions */}
                 <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
-                  <button onClick={() => setStep(1)} style={{
+                  <button onClick={() => setStep(1)} disabled={creating} style={{
                     flex: 1, padding: 12, borderRadius: 8,
                     border: "1px solid #e5e7eb", background: "#fff",
                     color: "#374151", fontSize: 13, fontWeight: 500, cursor: "pointer"
                   }}>← Voltar</button>
                   <button
                     onClick={handleCreate}
-                    disabled={!form.campaign_name || (form.budget_mode !== "BUDGET_MODE_INFINITE" && !form.budget)}
+                    disabled={creating || !form.campaign_name || (form.budget_mode !== "BUDGET_MODE_INFINITE" && !form.budget)}
                     style={{
                       flex: 2, padding: 12, borderRadius: 8, border: "none",
-                      background: (form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "#fe2c55" : "#e5e7eb",
-                      color: (form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "#fff" : "#9ca3af",
+                      background: (!creating && form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "#fe2c55" : "#e5e7eb",
+                      color: (!creating && form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "#fff" : "#9ca3af",
                       fontSize: 14, fontWeight: 600,
-                      cursor: (form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "pointer" : "not-allowed"
+                      cursor: (!creating && form.campaign_name && (form.budget_mode === "BUDGET_MODE_INFINITE" || form.budget)) ? "pointer" : "not-allowed"
                     }}>
-                    Criar campanha
+                    {creating ? "Criando..." : (config?.accessToken ? "Criar no TikTok Ads →" : "Criar campanha")}
                   </button>
                 </div>
               </div>
