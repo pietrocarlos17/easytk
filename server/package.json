@@ -1,0 +1,15 @@
+{
+  "name": "tiktok-ads-manager-server",
+  "version": "1.0.0",
+  "description": "Backend local para o TikTok Ads Manager",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.8.0",
+    "dotenv": "^16.4.5"
+  }
+}

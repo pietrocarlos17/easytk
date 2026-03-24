@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /tmp -name *.png -newer '/Users/pietrocarlos/Documents/Tiktok Ads Manager/public/index.html')",
+      "Bash(npm install:*)",
+      "Bash(node server.js)"
+    ]
+  }
+}
