@@ -190,6 +190,11 @@ async function handleRequest(req, res) {
     if (!user) return;
   }
 
+  // ── GET /health ───────────────────────────────────────────────────────────
+  if (req.method === "GET" && pathname === "/health") {
+    return json(res, 200, { status: "ok" });
+  }
+
   // ── GET /auth/url ─────────────────────────────────────────────────────────
   if (req.method === "GET" && pathname === "/auth/url") {
     if (!APP_ID) return json(res, 500, { error: "TIKTOK_APP_ID não configurado no .env" });
