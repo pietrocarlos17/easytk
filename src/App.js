@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import * as api from "./tiktokApi";
+import { mockCampaigns, mockMetrics, mockAdGroups } from "./mockData";
 import { LanguageProvider, useT } from "./i18n";
 
 import Sidebar from "./components/Sidebar";
@@ -70,6 +71,15 @@ function AppContent() {
     }
     localStorage.setItem("session_token", result.token);
     setUser(result.user);
+  };
+
+  // Demo mode
+  const handleDemoMode = () => {
+    setCampaigns(mockCampaigns);
+    setAdGroups(mockAdGroups);
+    setMetrics(mockMetrics);
+    setConnected(true);
+    showToast("Modo demo ativado — dados simulados");
   };
 
   // Handle logout
@@ -179,7 +189,7 @@ function AppContent() {
   if (!connected) {
     return (
       <>
-        <WelcomeScreen onOAuthConnect={handleOAuthConnect} />
+        <WelcomeScreen onOAuthConnect={handleOAuthConnect} onDemoMode={handleDemoMode} />
         <ToastBar toast={toast} />
       </>
     );

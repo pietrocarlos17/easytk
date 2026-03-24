@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useT } from "../i18n";
 
-export default function WelcomeScreen({ onOAuthConnect, loading }) {
+export default function WelcomeScreen({ onOAuthConnect, loading, onDemoMode }) {
   const { t, lang, setLang } = useT();
   const w = (key) => t(`welcome.${key}`);
   const [connecting, setConnecting] = useState(false);
@@ -62,6 +62,17 @@ export default function WelcomeScreen({ onOAuthConnect, loading }) {
           <span style={{ fontSize: 20 }}>&#9654;</span>
           {connecting ? w("connecting") : w("connectButton")}
         </button>
+
+        {/* Demo mode button */}
+        {onDemoMode && (
+          <button onClick={onDemoMode} style={{
+            width: "100%", padding: "12px", borderRadius: 12, marginTop: 12,
+            border: "1px dashed #d1d5db", background: "transparent",
+            color: "#6b7280", fontSize: 14, fontWeight: 500, cursor: "pointer"
+          }}>
+            Ver demo com dados simulados
+          </button>
+        )}
 
         {/* Steps info */}
         <div style={{ marginTop: 28, textAlign: "left" }}>
