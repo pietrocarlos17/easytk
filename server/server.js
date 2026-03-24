@@ -18,7 +18,7 @@ const http = require("http");
 const https = require("https");
 const db = require("./db");
 
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || "http://localhost:3000";
 
 const APP_ID = process.env.TIKTOK_APP_ID;
