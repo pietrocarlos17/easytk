@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/tiktok:path*",
+      "headers": [
+        { "key": "Content-Type", "value": "text/plain" }
+      ]
+    }
+  ],
   "rewrites": [
     {
       "source": "/((?!tiktok).*)",
