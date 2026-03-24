@@ -1,16 +1,6 @@
 {
-  "headers": [
-    {
-      "source": "/tiktok:path*",
-      "headers": [
-        { "key": "Content-Type", "value": "text/plain" }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/((?!tiktok).*)",
-      "destination": "/index.html"
-    }
+  "routes": [
+    { "src": "/tiktok(.*)", "dest": "/tiktok$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
