@@ -201,7 +201,7 @@ function AppContent() {
       case "dashboard": return <Dashboard campaigns={campaigns} metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} dateRange={dateRange} onDateChange={setDateRange} />;
       case "campaigns": return <Campaigns campaigns={campaigns} setCampaigns={setCampaigns} connected={connected} onGoToSettings={() => setPage("settings")} dateRange={dateRange} onDateChange={setDateRange} />;
       case "adgroups": return <AdGroups adGroups={adGroups} setAdGroups={setAdGroups} campaigns={campaigns} connected={connected} onGoToSettings={() => setPage("settings")} />;
-      case "reports": return <Reports metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} />;
+      case "reports": return <Reports metrics={metrics} connected={connected} onGoToSettings={() => setPage("settings")} dateRange={dateRange} onDateChange={setDateRange} />;
       case "business-centers": return <BusinessCenters bcs={bcs} setBcs={setBcs} showToast={showToast} />;
       case "settings": return <Settings config={config} connected={connected} onConnect={handleOAuthConnect} onDisconnect={() => { setConnected(false); setCampaigns([]); setAdGroups([]); setMetrics(null); }} user={user} />;
       default: return null;

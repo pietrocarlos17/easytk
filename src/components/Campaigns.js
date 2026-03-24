@@ -14,6 +14,19 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
     ));
   };
 
+  const duplicateCampaign = (id) => {
+    const original = campaigns.find(c => c.campaign_id === id);
+    if (!original) return;
+    const copy = {
+      ...original,
+      campaign_id: String(Date.now()),
+      campaign_name: `Cópia de ${original.campaign_name}`,
+      status: "DISABLE",
+      create_time: new Date().toISOString().split("T")[0],
+    };
+    setCampaigns(prev => [copy, ...prev]);
+  };
+
   const handleCreate = () => {
     if (!form.campaign_name || !form.budget) return;
     const newCampaign = {
@@ -120,14 +133,23 @@ export default function Campaigns({ campaigns, setCampaigns, connected, onGoToSe
                 <td style={{ padding: "12px 16px", color: "#6b7280" }}>{camp.create_time}</td>
                 <td style={{ padding: "12px 16px", textAlign: "center" }}>{statusBadge(camp.status, t)}</td>
                 <td style={{ padding: "12px 16px", textAlign: "center" }}>
-                  <button onClick={() => toggleStatus(camp.campaign_id)} style={{
-                    background: camp.status === "ENABLE" ? "#fef2f2" : "#f0fdf4",
-                    color: camp.status === "ENABLE" ? "#dc2626" : "#16a34a",
-                    border: "none", borderRadius: 6, padding: "5px 10px",
-                    fontSize: 12, fontWeight: 500, cursor: "pointer"
-                  }}>
-                    {camp.status === "ENABLE" ? t("pause") : t("activate")}
-                  </button>
+                  <div style={{ display: "flex", gap: 6, justifyContent: "center" }}>
+                    <button onClick={() => toggleStatus(camp.campaign_id)} style={{
+                      background: camp.status === "ENABLE" ? "#fef2f2" : "#f0fdf4",
+                      color: camp.status === "ENABLE" ? "#dc2626" : "#16a34a",
+                      border: "none", borderRadius: 6, padding: "5px 10px",
+                      fontSize: 12, fontWeight: 500, cursor: "pointer"
+                    }}>
+                      {camp.status === "ENABLE" ? t("pause") : t("activate")}
+                    </button>
+                    <button onClick={() => duplicateCampaign(camp.campaign_id)} style={{
+                      background: "#f0f9ff", color: "#0369a1",
+                      border: "none", borderRadius: 6, padding: "5px 10px",
+                      fontSize: 12, fontWeight: 500, cursor: "pointer"
+                    }}>
+                      Duplicar
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
