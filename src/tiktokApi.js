@@ -143,6 +143,15 @@ export async function getAdGroups(accessToken, advertiserId, campaignId = "") {
   return data.data?.list || [];
 }
 
+export async function createAdGroup(accessToken, advertiserId, payload) {
+  const data = await post("/api/adgroups/create", accessToken, {
+    advertiser_id: advertiserId,
+    ...payload,
+  });
+  if (data.code !== 0) throw new Error(data.message);
+  return data.data;
+}
+
 export async function updateAdGroup(accessToken, advertiserId, adgroupId, updates) {
   const data = await post("/api/adgroups/update", accessToken, {
     advertiser_id: advertiserId,

@@ -286,6 +286,16 @@ async function handleRequest(req, res) {
     return json(res, 200, tikRes);
   }
 
+  // ── POST /api/adgroups/create ─────────────────────────────────────────────
+  if (req.method === "POST" && pathname === "/api/adgroups/create") {
+    const token = requireToken(req, res);
+    if (!token) return;
+    const body = await readBody(req);
+    if (!body.advertiser_id) return json(res, 400, { error: "advertiser_id obrigatório no body" });
+    const tikRes = await proxyToTikTok("POST", `/adgroup/create/`, token, body);
+    return json(res, 200, tikRes);
+  }
+
   // ── POST /api/adgroups/update ─────────────────────────────────────────────
   if (req.method === "POST" && pathname === "/api/adgroups/update") {
     const token = requireToken(req, res);
