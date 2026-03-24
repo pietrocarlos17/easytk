@@ -12,7 +12,8 @@
  *   2. Preencha server/.env com suas credenciais
  */
 
-const BACKEND = "http://localhost:4000";
+const BACKEND = process.env.REACT_APP_API_URL ||
+  (window.location.hostname === "localhost" ? "http://localhost:4000" : "https://easytk-production.up.railway.app");
 
 function getSessionToken() {
   return localStorage.getItem("session_token") || "";
