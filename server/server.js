@@ -198,9 +198,19 @@ async function handleRequest(req, res) {
   // ── GET /auth/url ─────────────────────────────────────────────────────────
   if (req.method === "GET" && pathname === "/auth/url") {
     if (!APP_ID) return json(res, 500, { error: "TIKTOK_APP_ID não configurado no .env" });
+    const scopes = [
+      "advertiser.read",
+      "campaign.read",
+      "campaign.write",
+      "adgroup.read",
+      "adgroup.write",
+      "ad.read",
+      "report.read",
+      "bc.read",
+    ].join(",");
     const authUrl =
       `https://business-api.tiktok.com/portal/auth` +
-      `?app_id=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=tiktok_ads_manager`;
+      `?app_id=${APP_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&state=tiktok_ads_manager&scope=${encodeURIComponent(scopes)}`;
     return json(res, 200, { url: authUrl });
   }
 
