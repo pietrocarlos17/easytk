@@ -12,6 +12,7 @@ import BusinessCenters from "./components/BusinessCenters";
 import Settings from "./components/Settings";
 import WelcomeScreen from "./components/WelcomeScreen";
 import AuthScreen from "./components/AuthScreen";
+import OutletGafas from "./components/OutletGafas";
 
 const ToastBar = ({ toast }) => toast ? (
   <div style={{
@@ -228,6 +229,10 @@ function AppContent() {
 }
 
 export default function App() {
+  const pathname = typeof window !== "undefined" ? window.location.pathname : "/";
+  if (pathname.startsWith("/outlet-gafas")) {
+    return <OutletGafas />;
+  }
   return (
     <LanguageProvider>
       <AppContent />

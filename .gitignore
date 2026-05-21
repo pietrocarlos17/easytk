@@ -6,3 +6,12 @@ server/data.db-shm
 server/data.db-wal
 build/
 .DS_Store
+
+# Product photos — adicione localmente, não commitar
+public/products/**/*.jpg
+public/products/**/*.JPG
+public/products/**/*.jpeg
+public/products/**/*.png
+public/products/**/*.PNG
+public/products/**/*.webp
+public/products/**/*.avif
