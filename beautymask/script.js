@@ -306,7 +306,7 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   const PRODUCT = {
     name: 'Shark CryoGlow™ LED Face Mask',
     price: 89,
-    old: 305,
+    old: 250,
     img: 'images/gallery/g1.jpg'
   };
   const drawer = document.getElementById('cartDrawer');
