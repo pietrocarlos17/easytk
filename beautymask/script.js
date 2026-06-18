@@ -269,7 +269,7 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
 // ===== Cart =====
 (function () {
   const PRODUCT = {
-    name: 'Shark CryoGlow™ LED Face Mask in Frosted Green',
+    name: 'Shark CryoGlow™ LED Face Mask',
     price: 89,
     old: 305,
     img: 'images/gallery/g1.jpg'
