@@ -485,7 +485,7 @@ main { max-width: 2000px; margin: 0 auto; }
 .stars-y .half { color: #d8d8d8; }
 .reviews { padding: 50px 60px 80px; max-width: 1700px; margin: 0 auto; }
 .reviews-title { font-size: 28px; font-weight: 700; margin-bottom: 30px; }
-.reviews-grid { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 50px; padding-bottom: 30px; }
+.reviews-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding-bottom: 30px; }
 .reviews-grid h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
 .snap-sub { font-size: 14px; color: var(--gray); margin-bottom: 18px; }
 .snap-row { display: grid; grid-template-columns: 60px 1fr 30px; align-items: center; gap: 12px; margin-bottom: 10px; }
