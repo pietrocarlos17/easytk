@@ -904,7 +904,8 @@ main { max-width: 2000px; margin: 0 auto; }
   .gd { width: 9px; height: 9px; border-radius: 50%; background: #d0d0d4; }
   .gd.active { background: var(--black); }
   .m-product-title { display: block; font-size: 30px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
-  .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 16px 0; }
+  .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 16px 0; touch-action: pan-y; }
+  .main-photo { transition: opacity .2s; }
   .buy-panel { max-width: 100%; }
   .hero-product { gap: 14px; transform: none; }
   .mask { width: 170px; height: 200px; }

@@ -1,21 +1,44 @@
-// Thumbnail selection
+// ===== Product gallery (thumbs + dots + swipe) =====
 const thumbs = document.querySelectorAll('.thumb[data-img]');
-const mainGradients = {
-  1: 'linear-gradient(135deg,#8fae9f,#6e8f7f)',
-  2: 'linear-gradient(135deg,#e8a0a0,#d46b6b)',
-  3: 'linear-gradient(135deg,#c9a9e0,#9b6fc4)',
-  4: 'linear-gradient(135deg,#e8b0d0,#d480b0)',
-  5: 'linear-gradient(135deg,#d8e8f0,#a9d2ec)',
-  6: 'linear-gradient(135deg,#c0c0c8,#8a8a92)',
-  7: 'linear-gradient(135deg,#d8c0e0,#b48cc4)',
-  8: 'linear-gradient(135deg,#e0d0c0,#c0a890)'
-};
 const mainPhoto = document.querySelector('.main-photo');
-thumbs.forEach(t => t.addEventListener('click', () => {
-  thumbs.forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
-  if (mainPhoto && t.dataset.src) mainPhoto.src = t.dataset.src;
-}));
+const galDots = document.querySelectorAll('.gallery-dots .gd');
+const galSources = Array.from(thumbs).map(t => t.dataset.src);
+let galIdx = 0;
+
+function setGallery(i) {
+  if (!galSources.length) return;
+  galIdx = (i + galSources.length) % galSources.length;
+  if (mainPhoto && galSources[galIdx]) mainPhoto.src = galSources[galIdx];
+  thumbs.forEach((t, k) => t.classList.toggle('active', k === galIdx));
+  galDots.forEach((d, k) => d.classList.toggle('active', k === galIdx));
+}
+
+thumbs.forEach((t, i) => t.addEventListener('click', () => setGallery(i)));
+galDots.forEach((d, i) => d.addEventListener('click', () => setGallery(i)));
+
+const galNext = document.querySelector('.gallery-next');
+if (galNext) galNext.addEventListener('click', () => setGallery(galIdx + 1));
+const thumbUp = document.querySelector('.thumb-up');
+const thumbDown = document.querySelector('.thumb-down');
+if (thumbUp) thumbUp.addEventListener('click', () => setGallery(galIdx - 1));
+if (thumbDown) thumbDown.addEventListener('click', () => setGallery(galIdx + 1));
+
+// swipe (touch) + drag (mouse) on the main image to change photo
+const mainImage = document.querySelector('.main-image');
+if (mainImage) {
+  let startX = null, active = false;
+  const begin = x => { startX = x; active = true; };
+  const finish = x => {
+    if (!active || startX === null) return;
+    const dx = x - startX;
+    if (Math.abs(dx) > 40) setGallery(galIdx + (dx < 0 ? 1 : -1));
+    active = false; startX = null;
+  };
+  mainImage.addEventListener('touchstart', e => begin(e.changedTouches[0].clientX), { passive: true });
+  mainImage.addEventListener('touchend', e => finish(e.changedTouches[0].clientX), { passive: true });
+  mainImage.addEventListener('mousedown', e => { e.preventDefault(); begin(e.clientX); });
+  window.addEventListener('mouseup', e => finish(e.clientX));
+}
 
 // Read more
 const desc = document.querySelector('.description');
