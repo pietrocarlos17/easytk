@@ -300,7 +300,7 @@ main { max-width: 2000px; margin: 0 auto; }
 .qty-value { font-size: 16px; min-width: 16px; text-align: center; }
 
 .price-row { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
-.price { font-size: 28px; font-weight: 700; color: #d6195e; }
+.price { font-size: 28px; font-weight: 700; color: var(--black); }
 .price-old { font-size: 20px; color: var(--gray); text-decoration: line-through; }
 .price-save { font-size: 14px; font-weight: 700; color: #d6195e; background: #fde6ee; border-radius: 6px; padding: 4px 10px; }
 
