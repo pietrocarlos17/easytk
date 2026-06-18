@@ -715,7 +715,8 @@ main { max-width: 2000px; margin: 0 auto; }
 .footer-col a:hover { color: var(--black); text-decoration: underline; }
 
 .newsletter { padding-left: 20px; }
-.newsletter h2 { font-size: 34px; font-weight: 700; line-height: 1.15; margin-bottom: 26px; }
+.newsletter h2 { font-size: 34px; font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
+.nl-sub { font-size: 16px; color: var(--gray); line-height: 1.5; margin-bottom: 26px; max-width: 480px; }
 .nl-label { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
 .nl-form { display: flex; gap: 12px; margin-bottom: 18px; }
 .nl-form input {
