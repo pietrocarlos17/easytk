@@ -657,36 +657,6 @@ main { max-width: 2000px; margin: 0 auto; }
 }
 .badge-box strong { color: var(--black); margin-right: 8px; }
 
-/* ============ FOR PRODUCT OWNERS ============ */
-.owners { padding: 40px 60px; max-width: 2000px; margin: 0 auto; }
-.owners-card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  background: #f4f4f5;
-  border-radius: 20px;
-  overflow: hidden;
-}
-.owners-img {
-  background: url('images/product_support.jpg') center/cover no-repeat;
-  min-height: 540px;
-}
-.owners-content { padding: 60px; display: flex; flex-direction: column; }
-.owners-content h2 { font-size: 38px; font-weight: 700; text-align: center; margin-bottom: 36px; }
-.owners-links { list-style: none; display: flex; flex-direction: column; gap: 18px; }
-.owners-links li {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 20px 26px;
-  cursor: pointer;
-  transition: box-shadow .15s;
-}
-.owners-links li:hover { box-shadow: 0 6px 18px rgba(0,0,0,.08); }
-.ol-text { flex: 1; font-size: 18px; font-weight: 500; }
-.ol-icon, .ol-arrow { display: flex; align-items: center; color: var(--black); }
-
 /* ============ TRUST BAR ============ */
 .trust-bar {
   display: grid;
@@ -823,7 +793,6 @@ main { max-width: 2000px; margin: 0 auto; }
   .feature-row.reverse .feature-text { order: 0; }
   .innovation-media { grid-template-columns: 1fr; }
   .reviews-grid { grid-template-columns: 1fr; gap: 36px; }
-  .owners-card { grid-template-columns: 1fr; }
   .trust-bar { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
   .trust-item { border-right: none; padding: 0; }
   .footer { grid-template-columns: 1fr; gap: 36px; margin: 0 24px 40px; padding: 36px 24px; }
@@ -841,7 +810,7 @@ main { max-width: 2000px; margin: 0 auto; }
   .hero-product { order: 2; }
 
   /* section paddings */
-  .trending, .results, .benefits, .owners, .reviews { padding-left: 16px; padding-right: 16px; }
+  .trending, .results, .benefits, .reviews { padding-left: 16px; padding-right: 16px; }
   .trending { padding-top: 36px; }
   .innovation { padding: 20px 16px 50px; }
   .trust-bar { padding: 30px 16px 50px; }
@@ -887,7 +856,6 @@ main { max-width: 2000px; margin: 0 auto; }
   .trending-sub, .results-sub { font-size: 15px; }
   .feature-text h3 { font-size: 28px; }
   .benefit h3, .result-block h3 { font-size: 22px; }
-  .owners-content h2 { font-size: 28px; }
   .newsletter h2 { font-size: 26px; }
   .trust-item h3 { font-size: 21px; }
 
@@ -898,11 +866,6 @@ main { max-width: 2000px; margin: 0 auto; }
 
   /* trust bar single column */
   .trust-bar { grid-template-columns: 1fr; gap: 30px; }
-
-  /* owners */
-  .owners-img { min-height: 280px; }
-  .owners-content { padding: 28px 20px; }
-  .ol-text { font-size: 16px; }
 
   /* footer */
   .footer-links { grid-template-columns: 1fr; gap: 28px; }
