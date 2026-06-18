@@ -208,18 +208,24 @@ main { max-width: 2000px; margin: 0 auto; }
 .remote-buttons { display: flex; gap: 30px; }
 .remote-buttons span { width: 20px; height: 20px; border-radius: 50%; background: rgba(255,255,255,.4); }
 
-.gallery-next {
+.gallery-prev, .gallery-next {
   position: absolute;
-  right: -10px; top: 50%;
+  top: 50%;
   transform: translateY(-50%);
-  width: 44px; height: 44px;
-  background: var(--black);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
+  width: 42px; height: 42px;
+  background: rgba(255,255,255,.9);
+  color: var(--black);
+  border: 1px solid var(--light-gray);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0,0,0,.15);
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
+  z-index: 3;
+  transition: background .15s;
 }
+.gallery-prev:hover, .gallery-next:hover { background: #fff; }
+.gallery-prev { left: 12px; }
+.gallery-next { right: 12px; }
 
 .source-note {
   position: absolute;
@@ -989,13 +995,16 @@ main { max-width: 2000px; margin: 0 auto; }
   /* gallery / hero — full-width image carousel, no thumb rail */
   .product { padding: 8px 16px 32px; gap: 16px; }
   .product > * { min-width: 0; }
-  .gallery { grid-template-columns: 1fr; gap: 8px; min-width: 0; }
+  .gallery { grid-template-columns: 1fr; gap: 0; min-width: 0; }
   .thumbs { display: none; }
-  .gallery-dots { display: flex; justify-content: center; gap: 8px; padding: 6px 0 2px; }
+  .gallery-dots { display: flex; justify-content: center; gap: 8px; padding: 0; }
   .gd { width: 9px; height: 9px; border-radius: 50%; background: #d0d0d4; }
   .gd.active { background: var(--black); }
   .m-product-title { display: block; font-size: 30px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
-  .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 16px 0; touch-action: pan-y; }
+  .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 8px 0 0; touch-action: pan-y; }
+  .gallery-prev { left: 8px; }
+  .gallery-next { right: 8px; }
+  .gallery-prev, .gallery-next { width: 38px; height: 38px; }
   .main-photo { transition: opacity .2s; }
   .buy-panel { max-width: 100%; }
   .hero-product { gap: 14px; transform: none; }
@@ -1014,7 +1023,6 @@ main { max-width: 2000px; margin: 0 auto; }
   .badge-no1 .b2 { font-size: 18px; }
   .badge-no1 .b3 { font-size: 13px; }
   .badge-no1 .b4 { font-size: 15px; }
-  .gallery-next { display: none; }
 
   /* buy panel */
   .price { font-size: 24px; }

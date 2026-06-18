@@ -18,6 +18,8 @@ galDots.forEach((d, i) => d.addEventListener('click', () => setGallery(i)));
 
 const galNext = document.querySelector('.gallery-next');
 if (galNext) galNext.addEventListener('click', () => setGallery(galIdx + 1));
+const galPrev = document.querySelector('.gallery-prev');
+if (galPrev) galPrev.addEventListener('click', () => setGallery(galIdx - 1));
 const thumbUp = document.querySelector('.thumb-up');
 const thumbDown = document.querySelector('.thumb-down');
 if (thumbUp) thumbUp.addEventListener('click', () => setGallery(galIdx - 1));
