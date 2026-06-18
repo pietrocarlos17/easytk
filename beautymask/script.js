@@ -149,6 +149,28 @@ if (lightbox) {
   });
 }
 
+// Trending carousel arrows
+(function () {
+  const row = document.querySelector('.ugc-row');
+  const prev = document.querySelector('.ugc-prev');
+  const next = document.querySelector('.ugc-next');
+  if (!row || !prev || !next) return;
+  function step() {
+    const card = row.querySelector('.ugc-card');
+    const gap = 16;
+    return card ? card.getBoundingClientRect().width + gap : row.clientWidth * 0.8;
+  }
+  function update() {
+    prev.disabled = row.scrollLeft <= 4;
+    next.disabled = row.scrollLeft >= row.scrollWidth - row.clientWidth - 4;
+  }
+  prev.addEventListener('click', () => row.scrollBy({ left: -step() * 2, behavior: 'smooth' }));
+  next.addEventListener('click', () => row.scrollBy({ left: step() * 2, behavior: 'smooth' }));
+  row.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+})();
+
 // View more reviews
 const viewMoreBtn = document.getElementById('viewMoreBtn');
 const moreReviews = document.getElementById('moreReviews');
