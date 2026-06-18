@@ -107,7 +107,7 @@ main { max-width: 2000px; margin: 0 auto; }
   transition: border-color .15s;
 }
 .thumb.active { border: 2px solid var(--black); }
-.thumb-img { width: 100%; height: 100%; border-radius: 6px; }
+.thumb-img { width: 100%; height: 100%; border-radius: 6px; object-fit: cover; display: block; }
 
 .thumb-up, .thumb-down {
   width: 36px; height: 36px;
