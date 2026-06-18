@@ -159,6 +159,77 @@ if (viewMoreBtn && moreReviews) {
   });
 }
 
+// ===== Review search & filters =====
+(function () {
+  const searchInput = document.querySelector('.search-box input');
+  const reviewItems = Array.from(document.querySelectorAll('.review-item'));
+  const noResults = document.querySelector('.no-results');
+  const dds = document.querySelectorAll('.filter-dd');
+  if (!reviewItems.length) return;
+
+  const state = { q: '', rating: 'all', locale: 'all' };
+
+  function applyFilters() {
+    const active = state.q !== '' || state.rating !== 'all' || state.locale !== 'all';
+
+    if (active && moreReviews) { moreReviews.classList.add('open'); }
+    if (viewMoreBtn) viewMoreBtn.style.display = active ? 'none' : '';
+    if (!active && moreReviews) {
+      moreReviews.classList.remove('open');
+      if (viewMoreBtn) viewMoreBtn.textContent = 'View more reviews';
+    }
+
+    let shown = 0;
+    reviewItems.forEach(it => {
+      if (!active) { it.style.display = ''; return; }
+      const text = it.textContent.toLowerCase();
+      const r = it.dataset.rating;
+      const loc = it.dataset.locale || 'en_US';
+      const match =
+        (state.q === '' || text.includes(state.q)) &&
+        (state.rating === 'all' || r === state.rating) &&
+        (state.locale === 'all' || loc === state.locale);
+      it.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+
+    if (noResults) noResults.style.display = (active && shown === 0) ? 'block' : 'none';
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', () => {
+      state.q = searchInput.value.trim().toLowerCase();
+      applyFilters();
+    });
+  }
+
+  dds.forEach(dd => {
+    const toggle = dd.querySelector('.dropdown');
+    const label = dd.querySelector('.dd-label');
+    const baseLabel = label.textContent;
+    const key = dd.dataset.filter; // 'rating' | 'locale'
+
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      dds.forEach(o => { if (o !== dd) o.classList.remove('open'); });
+      dd.classList.toggle('open');
+    });
+
+    dd.querySelectorAll('.dd-menu li').forEach(li => {
+      li.addEventListener('click', () => {
+        dd.querySelectorAll('.dd-menu li').forEach(x => x.classList.remove('active'));
+        li.classList.add('active');
+        state[key] = li.dataset.value;
+        label.textContent = li.dataset.value === 'all' ? baseLabel : li.textContent;
+        dd.classList.remove('open');
+        applyFilters();
+      });
+    });
+  });
+
+  document.addEventListener('click', () => dds.forEach(o => o.classList.remove('open')));
+})();
+
 // Star rating input (Review this Product)
 document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   btn.addEventListener('click', () => {

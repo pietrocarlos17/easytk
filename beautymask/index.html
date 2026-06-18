@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
 </head>
 <body>
   <!-- Top accent bar -->
@@ -336,16 +336,33 @@
             <svg viewBox="0 0 24 24" width="20" height="20"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </div>
           <div class="filter-dropdowns">
-            <button class="dropdown">Rating <svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button class="dropdown">Locale <svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="filter-dd" data-filter="rating">
+              <button class="dropdown"><span class="dd-label">Rating</span> <svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <ul class="dd-menu">
+                <li data-value="all" class="active">All ratings</li>
+                <li data-value="5">5 stars</li>
+                <li data-value="4">4 stars</li>
+                <li data-value="3">3 stars</li>
+                <li data-value="2">2 stars</li>
+                <li data-value="1">1 star</li>
+              </ul>
+            </div>
+            <div class="filter-dd" data-filter="locale">
+              <button class="dropdown"><span class="dd-label">Locale</span> <svg viewBox="0 0 24 24" width="16" height="16"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <ul class="dd-menu">
+                <li data-value="all" class="active">All locations</li>
+                <li data-value="en_US">United States</li>
+              </ul>
+            </div>
           </div>
         </div>
 
         <!-- Review list -->
         <div class="review-list">
+          <p class="no-results" style="display:none">No reviews match your filters.</p>
 
           <!-- Review 1 -->
-          <article class="review-item has-side">
+          <article class="review-item has-side" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">Sage DeVore</p>
               <p class="meta-place">Madison, WI</p>
@@ -377,7 +394,7 @@
           </article>
 
           <!-- Review 2 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="4" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">p1nkt1nk_5256</p>
               <div class="review-tags">
@@ -407,7 +424,7 @@
           </article>
 
           <!-- Review 3 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">kellys359_6321</p>
               <div class="review-tags">
@@ -437,7 +454,7 @@
           </article>
 
           <!-- Review 4 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="4" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">brandymichele_3782</p>
               <div class="review-tags">
@@ -470,7 +487,7 @@
           <div class="more-reviews" id="moreReviews">
 
           <!-- Review 5 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="4" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">emmaa165_7777</p>
               <div class="review-tags">
@@ -500,7 +517,7 @@
           </article>
 
           <!-- Review 6 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="4" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">abbysg_9385</p>
               <div class="review-tags">
@@ -528,7 +545,7 @@
           </article>
 
           <!-- Review 7 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">bsst99_4325</p>
               <div class="review-tags">
@@ -558,7 +575,7 @@
           </article>
 
           <!-- Review 8 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">perselle24_1620</p>
               <div class="review-tags">
@@ -588,7 +605,7 @@
           </article>
 
           <!-- Review 9 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">studiobea_90</p>
               <div class="review-tags">
@@ -616,7 +633,7 @@
           </article>
 
           <!-- Review 10 -->
-          <article class="review-item">
+          <article class="review-item" data-rating="5" data-locale="en_US">
             <div class="review-meta">
               <p class="reviewer">AndreaM</p>
               <p class="meta-line">Review <strong>1</strong></p>
@@ -716,6 +733,6 @@
     <button class="lb-arrow lb-next" aria-label="Next">&#8250;</button>
   </div>
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
