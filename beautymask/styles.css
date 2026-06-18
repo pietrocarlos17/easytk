@@ -455,9 +455,9 @@ main { max-width: 2000px; margin: 0 auto; }
 .benefit { text-align: left; }
 .benefit-img { aspect-ratio: 1/0.92; border-radius: 16px; position: relative; }
 .benefit-img { background-size: cover; background-position: center; }
-.b-coverage { background-image: url('images/highlight_coverage.jpg'); }
-.b-cool { background-image: url('images/highlight_instachill.jpg'); }
-.b-clinical { background-image: url('images/highlight_prove.jpg'); }
+.b-coverage { background-image: url('images/gif/coverage.webp'); }
+.b-cool { background-image: url('images/gif/instachill.webp'); }
+.b-clinical { background-image: url('images/gif/prove.webp'); }
 .benefit-pill { position: absolute; top: 22px; left: 22px; background: #d6195e; color: #fff; font-size: 18px; font-weight: 700; padding: 10px 20px; border-radius: 30px; }
 .benefit h3 { font-size: 26px; font-weight: 700; margin: 22px 0 10px; }
 .benefit p { font-size: 16px; color: var(--gray); }
