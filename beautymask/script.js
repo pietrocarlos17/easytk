@@ -320,7 +320,7 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   if (!drawer) return;
 
   let qty = 0;
-  const money = n => '€' + n.toFixed(2).replace('.', ',');
+  const money = n => '£' + n.toFixed(2);
 
   function render() {
     countEls.forEach(c => c.textContent = qty);
