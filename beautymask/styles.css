@@ -788,4 +788,128 @@ main { max-width: 2000px; margin: 0 auto; }
   .sticky-bar { padding: 12px 20px; }
   .sticky-name { font-size: 13px; }
   .sticky-cart { padding: 12px 28px; }
+  .feature-row { grid-template-columns: 1fr; gap: 30px; padding: 40px 24px; }
+  .feature-row.reverse .feature-text { order: 0; }
+  .innovation-media { grid-template-columns: 1fr; }
+  .reviews-grid { grid-template-columns: 1fr; gap: 36px; }
+  .owners-card { grid-template-columns: 1fr; }
+  .trust-bar { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+  .trust-item { border-right: none; padding: 0; }
+  .footer { grid-template-columns: 1fr; gap: 36px; margin: 0 24px 40px; padding: 36px 24px; }
+  .newsletter { padding-left: 0; }
+}
+
+/* ===== Phones ===== */
+@media (max-width: 768px) {
+  body { padding-bottom: 76px; }
+
+  /* kill horizontal overflow */
+  .main-image { flex-direction: column; justify-content: center; }
+  .source-note { position: static; transform: none; white-space: normal; text-align: center; margin-top: 16px; padding: 0 16px; width: 100%; order: 3; }
+  .badge-no1 { order: 1; align-self: flex-end; position: static; margin-bottom: 8px; }
+  .hero-product { order: 2; }
+
+  /* section paddings */
+  .trending, .results, .benefits, .owners, .reviews { padding-left: 16px; padding-right: 16px; }
+  .trending { padding-top: 36px; }
+  .innovation { padding: 20px 16px 50px; }
+  .trust-bar { padding: 30px 16px 50px; }
+
+  /* gallery / hero */
+  .product { padding: 16px 16px 32px; gap: 24px; }
+  .product > * { min-width: 0; }
+  .gallery { grid-template-columns: 48px 1fr; gap: 12px; min-width: 0; }
+  .thumb { width: 44px; height: 44px; }
+  .thumb-up, .thumb-down { width: 30px; height: 30px; }
+  .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 16px 0; }
+  .buy-panel { max-width: 100%; }
+  .hero-product { gap: 14px; transform: none; }
+  .mask { width: 170px; height: 200px; }
+  .mask::before { width: 34px; height: 48px; top: 44px; left: 34px; box-shadow: 72px 0 0 rgba(255,255,255,.85); }
+  .mask::after { width: 44px; height: 13px; bottom: 44px; left: 64px; }
+  .remote { width: 68px; height: 172px; padding: 8px; gap: 8px; }
+  .remote-screen { height: 42px; }
+  .remote-screen span { font-size: 8px; }
+  .remote-screen strong { font-size: 11px; }
+  .remote-dial { width: 34px; height: 34px; }
+  .remote-buttons { gap: 16px; }
+  .remote-buttons span { width: 12px; height: 12px; }
+  .badge-no1 { top: 8px; right: 8px; }
+  .badge-no1 .b1 { font-size: 30px; }
+  .badge-no1 .b2 { font-size: 18px; }
+  .badge-no1 .b3 { font-size: 13px; }
+  .badge-no1 .b4 { font-size: 15px; }
+  .gallery-next { display: none; }
+
+  /* buy panel */
+  .price { font-size: 24px; }
+  .rating-row { flex-wrap: wrap; gap: 12px; }
+
+  /* headings */
+  .trending h2, .results h2, .benefits h2 { font-size: 24px; }
+  .trending-sub, .results-sub { font-size: 15px; }
+  .feature-text h3 { font-size: 28px; }
+  .benefit h3, .result-block h3 { font-size: 22px; }
+  .owners-content h2 { font-size: 28px; }
+  .newsletter h2 { font-size: 26px; }
+  .trust-item h3 { font-size: 21px; }
+
+  /* trending UGC: horizontal scroll */
+  .ugc-row { grid-template-columns: none; display: flex; overflow-x: auto; gap: 12px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+  .ugc-card { flex: 0 0 70%; scroll-snap-align: start; }
+  .ugc-next { display: none; }
+
+  /* trust bar single column */
+  .trust-bar { grid-template-columns: 1fr; gap: 30px; }
+
+  /* owners */
+  .owners-img { min-height: 280px; }
+  .owners-content { padding: 28px 20px; }
+  .ol-text { font-size: 16px; }
+
+  /* footer */
+  .footer-links { grid-template-columns: 1fr; gap: 28px; }
+  .nl-form { flex-direction: column; }
+  .nl-signup { padding: 14px; }
+
+  /* tabs */
+  .tabs { padding: 16px 0; }
+  .tab { padding: 10px 22px; font-size: 15px; }
+
+  /* customer media: horizontal scroll */
+  .cm-row { display: flex; overflow-x: auto; gap: 8px; -webkit-overflow-scrolling: touch; }
+  .cm-img { flex: 0 0 130px; }
+  .cm-next { display: none; }
+
+  /* reviews list stacks */
+  .review-item, .review-item.has-side { grid-template-columns: 1fr; gap: 16px; padding: 28px 0; }
+  .review-item > * { min-width: 0; }
+  .review-images { min-width: 0; }
+  .review-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+  .review-tags { flex-direction: row; align-items: center; margin-bottom: 0; }
+  .reviewer { margin-bottom: 0; }
+  .review-headline { font-size: 19px; }
+  .review-text { font-size: 15px; }
+  .review-images { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .rp { width: 130px; height: 130px; }
+  .badge-box { font-size: 13px; padding: 10px 14px; }
+  .view-more-btn { width: 100%; }
+
+  /* avg ratings 2-up */
+  .avg-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  /* sticky bottom bar */
+  .sticky-bar { padding: 10px 16px; gap: 12px; }
+  .sticky-name { font-size: 12px; }
+  .sticky-price { font-size: 18px; }
+  .sticky-cart { padding: 12px 22px; font-size: 14px; white-space: nowrap; }
+
+  /* feedback tab smaller */
+  .feedback-tab { padding: 14px 6px; font-size: 11px; }
+}
+
+@media (max-width: 480px) {
+  .avg-grid { grid-template-columns: 1fr; }
+  .results-sub, .trending-sub { font-size: 14px; }
+  .feature-text h3 { font-size: 24px; }
 }
