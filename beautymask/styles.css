@@ -715,6 +715,17 @@ main { max-width: 2000px; margin: 0 auto; }
   font-family: inherit;
   cursor: pointer;
 }
+.nl-success {
+  font-size: 15px;
+  font-weight: 600;
+  color: #3aa86a;
+  margin: -6px 0 18px;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .25s ease, max-height .25s ease;
+}
+.nl-success.show { max-height: 40px; opacity: 1; }
 .nl-check { display: flex; gap: 12px; margin-bottom: 18px; }
 .nl-check input { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
 .nl-check span, .nl-disclaimer { font-size: 14px; color: var(--gray); line-height: 1.5; }

@@ -107,3 +107,23 @@ document.querySelectorAll('.add-to-cart, .addon-cart').forEach(btn => {
     setTimeout(() => { btn.textContent = original; }, 1500);
   });
 });
+
+// Newsletter signup
+const nlEmail = document.getElementById('nlEmail');
+const nlSignup = document.getElementById('nlSignup');
+const nlSuccess = document.getElementById('nlSuccess');
+if (nlEmail && nlSignup && nlSuccess) {
+  let nlTimer;
+  const submitNewsletter = () => {
+    if (!nlEmail.checkValidity() || !nlEmail.value.trim()) {
+      nlEmail.reportValidity();
+      return;
+    }
+    nlEmail.value = '';
+    nlSuccess.classList.add('show');
+    clearTimeout(nlTimer);
+    nlTimer = setTimeout(() => nlSuccess.classList.remove('show'), 3000);
+  };
+  nlSignup.addEventListener('click', submitNewsletter);
+  nlEmail.addEventListener('keydown', e => { if (e.key === 'Enter') submitNewsletter(); });
+}
