@@ -512,14 +512,14 @@ main { max-width: 2000px; margin: 0 auto; }
 }
 .rate-note { font-size: 14px; color: var(--gray); }
 
-.avg-ratings { border-top: 1px solid var(--light-gray); background: #fafafa; padding: 30px; border-radius: 8px; }
-.avg-title { text-align: center; font-size: 17px; font-weight: 600; margin-bottom: 24px; }
-.avg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-.avg-item { display: flex; flex-direction: column; gap: 8px; }
-.avg-item > span:first-child { font-size: 15px; }
-.avg-bar { height: 12px; background: #e6e6e8; border-radius: 6px; overflow: hidden; }
+.avg-ratings { border-top: 1px solid var(--light-gray); background: #fafafa; padding: 20px 24px; border-radius: 8px; }
+.avg-title { text-align: center; font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+.avg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 36px; }
+.avg-item { display: grid; grid-template-columns: 92px 1fr 30px; align-items: center; gap: 12px; }
+.avg-item > span:first-child { font-size: 14px; }
+.avg-bar { height: 8px; background: #e6e6e8; border-radius: 4px; overflow: hidden; }
 .avg-bar span { display: block; height: 100%; background: #f5b800; }
-.avg-item strong { font-size: 14px; }
+.avg-item strong { font-size: 13px; text-align: right; }
 
 /* ============ CUSTOMER MEDIA ============ */
 .customer-media { margin-top: 50px; }
@@ -766,22 +766,6 @@ main { max-width: 2000px; margin: 0 auto; }
 .sticky-price { font-size: 22px; font-weight: 700; }
 .sticky-cart { width: auto; padding: 16px 60px; }
 
-/* Feedback tab */
-.feedback-tab {
-  position: fixed;
-  right: 0; top: 45%;
-  background: var(--black);
-  color: #fff;
-  border: none;
-  padding: 18px 8px;
-  font-size: 13px;
-  font-family: inherit;
-  writing-mode: vertical-rl;
-  border-radius: 8px 0 0 8px;
-  cursor: pointer;
-  z-index: 99;
-}
-
 /* ============ BREADCRUMB ============ */
 .breadcrumb { padding: 20px 60px 0; font-size: 14px; color: var(--gray); max-width: 2000px; margin: 0 auto; }
 
@@ -949,16 +933,13 @@ main { max-width: 2000px; margin: 0 auto; }
   .view-more-btn { width: 100%; }
 
   /* avg ratings 2-up */
-  .avg-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .avg-grid { grid-template-columns: 1fr; gap: 10px; }
 
   /* sticky bottom bar */
   .sticky-bar { padding: 10px 16px; gap: 12px; }
   .sticky-name { font-size: 12px; }
   .sticky-price { font-size: 18px; }
   .sticky-cart { padding: 12px 22px; font-size: 14px; white-space: nowrap; }
-
-  /* feedback tab smaller */
-  .feedback-tab { padding: 14px 6px; font-size: 11px; }
 
   /* add-on card vertical */
   .addon-card { flex-direction: column; }
