@@ -11,11 +11,38 @@ const mainGradients = {
   8: 'linear-gradient(135deg,#e0d0c0,#c0a890)'
 };
 const mainPhoto = document.querySelector('.main-photo');
-thumbs.forEach(t => t.addEventListener('click', () => {
-  thumbs.forEach(x => x.classList.remove('active'));
-  t.classList.add('active');
-  if (mainPhoto && t.dataset.src) mainPhoto.src = t.dataset.src;
-}));
+const galleryDots = document.querySelectorAll('.gallery-dots .gd');
+const gallerySources = Array.from(thumbs).map(t => t.dataset.src);
+let galleryIndex = 0;
+
+function showGalleryImage(i) {
+  if (!gallerySources.length) return;
+  galleryIndex = (i + gallerySources.length) % gallerySources.length;
+  if (mainPhoto) mainPhoto.src = gallerySources[galleryIndex];
+  thumbs.forEach((t, j) => t.classList.toggle('active', j === galleryIndex));
+  galleryDots.forEach((d, j) => d.classList.toggle('active', j === galleryIndex));
+}
+
+thumbs.forEach((t, i) => t.addEventListener('click', () => showGalleryImage(i)));
+galleryDots.forEach((d, i) => d.addEventListener('click', () => showGalleryImage(i)));
+
+// Prev / next controls (thumb arrows + main-image next button)
+document.querySelector('.thumb-up')?.addEventListener('click', () => showGalleryImage(galleryIndex - 1));
+document.querySelector('.thumb-down')?.addEventListener('click', () => showGalleryImage(galleryIndex + 1));
+document.querySelector('.gallery-next')?.addEventListener('click', () => showGalleryImage(galleryIndex + 1));
+
+// Swipe support on the main image (mobile)
+const mainImage = document.querySelector('.main-image');
+if (mainImage) {
+  let touchStartX = null;
+  mainImage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+  mainImage.addEventListener('touchend', e => {
+    if (touchStartX === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) showGalleryImage(galleryIndex + (dx < 0 ? 1 : -1));
+    touchStartX = null;
+  }, { passive: true });
+}
 
 // Read more
 const desc = document.querySelector('.description');
