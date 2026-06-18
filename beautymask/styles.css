@@ -536,6 +536,8 @@ main { max-width: 2000px; margin: 0 auto; }
 .innovation { padding: 30px 60px 80px; max-width: 1700px; margin: 0 auto; text-align: center; }
 .innovation-sub { font-size: 20px; margin-bottom: 50px; }
 .innovation-media { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
+.innovation-media.single { display: block; max-width: 560px; }
+.inno-gif { width: 100%; border-radius: 12px; display: block; }
 .inno-img { aspect-ratio: 1/1.05; border-radius: 4px; position: relative; }
 .i-face { background: url('images/editorial.jpg') center/cover no-repeat; }
 .i-thermal { background: radial-gradient(circle at 45% 40%, #2ee6c0, #1a4ad0 55%, #0a1a6a); display: flex; align-items: center; justify-content: center; }
