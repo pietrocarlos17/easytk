@@ -82,6 +82,50 @@ function updateActiveTab() {
 window.addEventListener('scroll', updateActiveTab, { passive: true });
 updateActiveTab();
 
+// Review photo lightbox
+const lightbox = document.getElementById('lightbox');
+if (lightbox) {
+  const lbImg = document.getElementById('lbImg');
+  const lbClose = lightbox.querySelector('.lb-close');
+  const lbPrev = lightbox.querySelector('.lb-prev');
+  const lbNext = lightbox.querySelector('.lb-next');
+  let group = [];
+  let idx = 0;
+
+  function show(i) {
+    idx = (i + group.length) % group.length;
+    lbImg.src = group[idx];
+  }
+  function openLightbox(imgEl) {
+    const row = imgEl.closest('.review-images');
+    group = Array.from(row.querySelectorAll('img.rp')).map(im => im.getAttribute('src'));
+    idx = group.indexOf(imgEl.getAttribute('src'));
+    lbImg.src = group[idx];
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.review-images img.rp').forEach(im => {
+    im.addEventListener('click', () => openLightbox(im));
+  });
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', () => show(idx - 1));
+  lbNext.addEventListener('click', () => show(idx + 1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') show(idx - 1);
+    else if (e.key === 'ArrowRight') show(idx + 1);
+  });
+}
+
 // View more reviews
 const viewMoreBtn = document.getElementById('viewMoreBtn');
 const moreReviews = document.getElementById('moreReviews');

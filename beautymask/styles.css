@@ -605,7 +605,53 @@ main { max-width: 2000px; margin: 0 auto; }
 .review-date { font-size: 14px; color: var(--gray); margin-bottom: 16px; }
 .review-text { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
 .review-images { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; object-fit: cover; }
+.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; object-fit: cover; cursor: pointer; transition: opacity .15s; }
+.rp:hover { opacity: .85; }
+
+/* ============ REVIEW PHOTO LIGHTBOX ============ */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.88);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lb-img {
+  max-width: 88vw;
+  max-height: 88vh;
+  border-radius: 8px;
+  object-fit: contain;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.lb-close {
+  position: absolute;
+  top: 22px; right: 28px;
+  background: none; border: none;
+  color: #fff; font-size: 44px; line-height: 1;
+  cursor: pointer;
+}
+.lb-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,.15);
+  border: none; border-radius: 50%;
+  color: #fff; font-size: 32px; line-height: 1;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s;
+}
+.lb-arrow:hover { background: rgba(255,255,255,.3); }
+.lb-prev { left: 24px; }
+.lb-next { right: 24px; }
+@media (max-width: 768px) {
+  .lb-arrow { width: 44px; height: 44px; font-size: 26px; }
+  .lb-prev { left: 10px; }
+  .lb-next { right: 10px; }
+  .lb-close { top: 14px; right: 16px; }
+}
 .rp-skin { background: linear-gradient(135deg,#e8cbb5,#c89e80); }
 .rp-red { background: radial-gradient(circle at 50% 42%,#ff3a4a,#7a1520 70%,#2a0a10); }
 .rp-blue { background: radial-gradient(circle at 50% 45%,#4a6aff,#1a2a9a 65%,#0a0a3a); }
