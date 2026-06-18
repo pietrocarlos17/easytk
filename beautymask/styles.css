@@ -943,8 +943,8 @@ main { max-width: 2000px; margin: 0 auto; }
   .reviewer { margin-bottom: 0; }
   .review-headline { font-size: 19px; }
   .review-text { font-size: 15px; }
-  .review-images { flex-direction: column; gap: 10px; }
-  .rp { width: 100%; max-width: 340px; height: auto; aspect-ratio: 1 / 1; }
+  .review-images { flex-flow: row wrap; gap: 8px; }
+  .rp { width: 90px; height: 90px; max-width: none; aspect-ratio: auto; }
   .badge-box { font-size: 13px; padding: 10px 14px; }
   .view-more-btn { width: 100%; }
 
