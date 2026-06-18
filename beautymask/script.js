@@ -266,6 +266,41 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   });
 });
 
+// ===== Hamburger menu =====
+(function () {
+  const drawer = document.getElementById('menuDrawer');
+  const overlay = document.getElementById('menuOverlay');
+  const toggle = document.querySelector('.hi-menu');
+  const closeBtn = document.getElementById('menuClose');
+  if (!drawer || !toggle) return;
+
+  function open() { drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+  function close() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); overlay.hidden = true; document.body.style.overflow = ''; }
+
+  toggle.addEventListener('click', open);
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('open')) close(); });
+
+  drawer.querySelectorAll('.menu-nav a').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = a.dataset.scroll;
+      if (target) {
+        e.preventDefault();
+        let el = null;
+        if (target === 'top') el = document.body;
+        else if (target === 'highlights') el = document.querySelector('.results');
+        else if (target === 'reviews') el = document.querySelector('.reviews');
+        if (el) {
+          const y = target === 'top' ? 0 : el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }
+      close();
+    });
+  });
+})();
+
 // ===== Cart =====
 (function () {
   const PRODUCT = {

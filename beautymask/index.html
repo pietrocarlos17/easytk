@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=35" />
+  <link rel="stylesheet" href="styles.css?v=36" />
 </head>
 <body>
   <!-- ============ SITE HEADER ============ -->
@@ -29,7 +29,7 @@
           <svg viewBox="0 0 24 24" width="26" height="26"><circle cx="9" cy="20" r="1.6" fill="currentColor"/><circle cx="18" cy="20" r="1.6" fill="currentColor"/><path d="M2 3h3l2.2 12.3a1.5 1.5 0 001.5 1.2h8.8a1.5 1.5 0 001.5-1.2L21 7H6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="cart-count">0</span>
         </button>
-        <button class="hi-btn" aria-label="Menu">
+        <button class="hi-btn hi-menu" aria-label="Menu">
           <svg viewBox="0 0 24 24" width="26" height="26"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </nav>
@@ -736,6 +736,24 @@
     <button class="lb-arrow lb-next" aria-label="Next">&#8250;</button>
   </div>
 
+  <!-- ============ MENU DRAWER ============ -->
+  <div class="menu-overlay" id="menuOverlay" hidden></div>
+  <aside class="menu-drawer" id="menuDrawer" aria-hidden="true">
+    <div class="menu-head">
+      <img src="images/sharkninja-logo.svg" alt="SharkNinja" class="menu-logo" />
+      <button class="menu-close" id="menuClose" aria-label="Close">&times;</button>
+    </div>
+    <nav class="menu-nav">
+      <a href="#" data-scroll="top">Home</a>
+      <a href="#">Beauty</a>
+      <a href="#">Skincare</a>
+      <a href="#">LED Face Masks</a>
+      <a href="#" data-scroll="highlights">Highlights</a>
+      <a href="#" data-scroll="reviews">Reviews</a>
+      <a href="#">Support &amp; FAQs</a>
+    </nav>
+  </aside>
+
   <!-- ============ CART DRAWER ============ -->
   <div class="cart-overlay" id="cartOverlay" hidden></div>
   <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
@@ -753,6 +771,6 @@
     </div>
   </aside>
 
-  <script src="script.js?v=35"></script>
+  <script src="script.js?v=36"></script>
 </body>
 </html>
