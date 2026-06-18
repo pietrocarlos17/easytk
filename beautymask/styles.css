@@ -605,7 +605,40 @@ main { max-width: 2000px; margin: 0 auto; }
 .review-date { font-size: 14px; color: var(--gray); margin-bottom: 16px; }
 .review-text { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
 .review-images { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; }
+.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; cursor: pointer; transition: transform .15s; }
+.rp:hover { transform: scale(1.03); }
+
+/* Review photo lightbox */
+.rp-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0,0,0,.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.rp-lightbox.open { display: flex; }
+.rp-lightbox-photo {
+  width: min(80vw, 640px);
+  height: min(80vw, 640px);
+  max-height: 85vh;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.5);
+}
+.rp-lightbox-close {
+  position: absolute;
+  top: 20px; right: 24px;
+  width: 48px; height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.rp-lightbox-close:hover { background: rgba(255,255,255,.28); }
 .rp-skin { background: linear-gradient(135deg,#e8cbb5,#c89e80); }
 .rp-red { background: radial-gradient(circle at 50% 42%,#ff3a4a,#7a1520 70%,#2a0a10); }
 .rp-blue { background: radial-gradient(circle at 50% 45%,#4a6aff,#1a2a9a 65%,#0a0a3a); }

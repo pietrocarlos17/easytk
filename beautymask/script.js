@@ -154,3 +154,31 @@ if (nlEmail && nlSignup && nlSuccess) {
   nlSignup.addEventListener('click', submitNewsletter);
   nlEmail.addEventListener('keydown', e => { if (e.key === 'Enter') submitNewsletter(); });
 }
+
+// Review photo lightbox
+const rpLightbox = document.getElementById('rpLightbox');
+const rpLightboxPhoto = document.getElementById('rpLightboxPhoto');
+const rpLightboxClose = document.getElementById('rpLightboxClose');
+if (rpLightbox && rpLightboxPhoto) {
+  const openRpLightbox = rp => {
+    const cs = getComputedStyle(rp);
+    rpLightboxPhoto.style.backgroundImage = cs.backgroundImage;
+    rpLightboxPhoto.style.backgroundColor = cs.backgroundColor;
+    rpLightboxPhoto.style.backgroundSize = 'cover';
+    rpLightboxPhoto.style.backgroundPosition = 'center';
+    rpLightbox.classList.add('open');
+    rpLightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+  const closeRpLightbox = () => {
+    rpLightbox.classList.remove('open');
+    rpLightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+  document.querySelectorAll('.review-images .rp').forEach(rp => {
+    rp.addEventListener('click', () => openRpLightbox(rp));
+  });
+  rpLightboxClose?.addEventListener('click', closeRpLightbox);
+  rpLightbox.addEventListener('click', e => { if (e.target === rpLightbox) closeRpLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && rpLightbox.classList.contains('open')) closeRpLightbox(); });
+}
