@@ -775,6 +775,45 @@ main { max-width: 2000px; margin: 0 auto; }
   z-index: 99;
 }
 
+/* ============ BREADCRUMB ============ */
+.breadcrumb { padding: 20px 60px 0; font-size: 14px; color: var(--gray); max-width: 2000px; margin: 0 auto; }
+
+/* ============ MOBILE-ONLY HELPERS (hidden on desktop) ============ */
+.gallery-dots, .m-product-title { display: none; }
+
+/* ============ INNOVATION TITLE ============ */
+.innovation-title { font-size: 38px; font-weight: 700; margin-bottom: 14px; }
+
+/* ============ YOU'RE IN CONTROL MEDIA ============ */
+.m-control { background: linear-gradient(135deg, #d8dde2, #aeb6bd); display: flex; align-items: center; justify-content: center; }
+.control-remote {
+  width: 130px; height: 320px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 24px 50px rgba(0,0,0,.16);
+  padding: 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.control-screen {
+  width: 100%; height: 130px;
+  border-radius: 14px;
+  background: linear-gradient(160deg, #1f2a44, #3a4a7a);
+  color: #fff;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+}
+.cs-time { font-size: 30px; font-weight: 700; }
+.cs-mode { font-size: 13px; opacity: .9; }
+
+/* ============ TRANSFORM HERO ============ */
+.transform-hero {
+  background: radial-gradient(circle at 50% 35%, #3a3550, #15131f 75%);
+  color: #fff;
+  text-align: center;
+  padding: 110px 40px;
+}
+.transform-inner h2 { font-size: 48px; font-weight: 700; margin-bottom: 18px; }
+.transform-inner p { font-size: 20px; opacity: .92; }
+
 /* ============ RESPONSIVE ============ */
 @media (max-width: 1100px) {
   .product { grid-template-columns: 1fr; padding: 24px 24px 40px; }
@@ -815,12 +854,18 @@ main { max-width: 2000px; margin: 0 auto; }
   .innovation { padding: 20px 16px 50px; }
   .trust-bar { padding: 30px 16px 50px; }
 
-  /* gallery / hero */
-  .product { padding: 16px 16px 32px; gap: 24px; }
+  /* breadcrumb */
+  .breadcrumb { padding: 14px 16px 0; font-size: 13px; }
+
+  /* gallery / hero — full-width image carousel, no thumb rail */
+  .product { padding: 8px 16px 32px; gap: 16px; }
   .product > * { min-width: 0; }
-  .gallery { grid-template-columns: 48px 1fr; gap: 12px; min-width: 0; }
-  .thumb { width: 44px; height: 44px; }
-  .thumb-up, .thumb-down { width: 30px; height: 30px; }
+  .gallery { grid-template-columns: 1fr; gap: 8px; min-width: 0; }
+  .thumbs { display: none; }
+  .gallery-dots { display: flex; justify-content: center; gap: 8px; padding: 6px 0 2px; }
+  .gd { width: 9px; height: 9px; border-radius: 50%; background: #d0d0d4; }
+  .gd.active { background: var(--black); }
+  .m-product-title { display: block; font-size: 30px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
   .main-image { min-height: auto; min-width: 0; width: 100%; overflow: hidden; padding: 16px 0; }
   .buy-panel { max-width: 100%; }
   .hero-product { gap: 14px; transform: none; }
@@ -890,8 +935,8 @@ main { max-width: 2000px; margin: 0 auto; }
   .reviewer { margin-bottom: 0; }
   .review-headline { font-size: 19px; }
   .review-text { font-size: 15px; }
-  .review-images { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .rp { width: 130px; height: 130px; }
+  .review-images { flex-direction: column; gap: 10px; }
+  .rp { width: 100%; max-width: 340px; height: auto; aspect-ratio: 1 / 1; }
   .badge-box { font-size: 13px; padding: 10px 14px; }
   .view-more-btn { width: 100%; }
 
@@ -906,6 +951,39 @@ main { max-width: 2000px; margin: 0 auto; }
 
   /* feedback tab smaller */
   .feedback-tab { padding: 14px 6px; font-size: 11px; }
+
+  /* add-on card vertical */
+  .addon-card { flex-direction: column; }
+  .addon-img { width: 100%; height: 220px; }
+  .addon-cart { width: 100%; }
+
+  /* feature rows: centered text */
+  .feature-text { text-align: center; }
+  .feature-text p { margin: 0 auto; }
+  .feature-media { aspect-ratio: 1 / 1; }
+  .control-remote, .modes-remote { transform: scale(.85); }
+
+  /* innovation */
+  .innovation-title { font-size: 26px; }
+  .innovation-sub { font-size: 16px; }
+
+  /* transform hero */
+  .transform-hero { padding: 70px 24px; }
+  .transform-inner h2 { font-size: 32px; }
+  .transform-inner p { font-size: 16px; }
+
+  /* results & benefits become horizontal carousels */
+  .results-grid, .benefits-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .result-block, .benefit { flex: 0 0 88%; scroll-snap-align: center; }
+  .footnotes { margin-top: 30px; }
 }
 
 @media (max-width: 480px) {
