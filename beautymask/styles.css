@@ -605,7 +605,7 @@ main { max-width: 2000px; margin: 0 auto; }
 .review-date { font-size: 14px; color: var(--gray); margin-bottom: 16px; }
 .review-text { font-size: 16px; line-height: 1.6; margin-bottom: 20px; }
 .review-images { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; }
+.rp { width: 188px; height: 188px; border-radius: 4px; flex-shrink: 0; object-fit: cover; }
 .rp-skin { background: linear-gradient(135deg,#e8cbb5,#c89e80); }
 .rp-red { background: radial-gradient(circle at 50% 42%,#ff3a4a,#7a1520 70%,#2a0a10); }
 .rp-blue { background: radial-gradient(circle at 50% 45%,#4a6aff,#1a2a9a 65%,#0a0a3a); }
