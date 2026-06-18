@@ -171,52 +171,66 @@ if (lightbox) {
   update();
 })();
 
-// View more reviews
-const viewMoreBtn = document.getElementById('viewMoreBtn');
-const moreReviews = document.getElementById('moreReviews');
-if (viewMoreBtn && moreReviews) {
-  viewMoreBtn.addEventListener('click', () => {
-    const open = moreReviews.classList.toggle('open');
-    viewMoreBtn.textContent = open ? 'View less' : 'View more reviews';
-  });
-}
-
-// ===== Review search & filters =====
+// ===== Reviews: incremental view-more + search/filters =====
 (function () {
+  const viewMoreBtn = document.getElementById('viewMoreBtn');
+  const moreReviews = document.getElementById('moreReviews');
   const searchInput = document.querySelector('.search-box input');
   const reviewItems = Array.from(document.querySelectorAll('.review-item'));
   const noResults = document.querySelector('.no-results');
   const dds = document.querySelectorAll('.filter-dd');
   if (!reviewItems.length) return;
 
+  // container always rendered; individual extra items are toggled one at a time
+  if (moreReviews) moreReviews.classList.add('open');
+  const extra = moreReviews ? Array.from(moreReviews.querySelectorAll('.review-item')) : [];
   const state = { q: '', rating: 'all', locale: 'all' };
+  let revealed = 0;
 
-  function applyFilters() {
-    const active = state.q !== '' || state.rating !== 'all' || state.locale !== 'all';
-
-    if (active && moreReviews) { moreReviews.classList.add('open'); }
-    if (viewMoreBtn) viewMoreBtn.style.display = active ? 'none' : '';
-    if (!active && moreReviews) {
-      moreReviews.classList.remove('open');
-      if (viewMoreBtn) viewMoreBtn.textContent = 'View more reviews';
-    }
-
-    let shown = 0;
-    reviewItems.forEach(it => {
-      if (!active) { it.style.display = ''; return; }
-      const text = it.textContent.toLowerCase();
-      const r = it.dataset.rating;
-      const loc = it.dataset.locale || 'en_US';
-      const match =
-        (state.q === '' || text.includes(state.q)) &&
-        (state.rating === 'all' || r === state.rating) &&
-        (state.locale === 'all' || loc === state.locale);
-      it.style.display = match ? '' : 'none';
-      if (match) shown++;
-    });
-
-    if (noResults) noResults.style.display = (active && shown === 0) ? 'block' : 'none';
+  function filtersActive() {
+    return state.q !== '' || state.rating !== 'all' || state.locale !== 'all';
   }
+  function matches(it) {
+    const text = it.textContent.toLowerCase();
+    const r = it.dataset.rating;
+    const loc = it.dataset.locale || 'en_US';
+    return (state.q === '' || text.includes(state.q)) &&
+      (state.rating === 'all' || r === state.rating) &&
+      (state.locale === 'all' || loc === state.locale);
+  }
+  function render() {
+    if (filtersActive()) {
+      let shown = 0;
+      reviewItems.forEach(it => { const m = matches(it); it.style.display = m ? '' : 'none'; if (m) shown++; });
+      if (viewMoreBtn) viewMoreBtn.style.display = 'none';
+      if (noResults) noResults.style.display = shown === 0 ? 'block' : 'none';
+    } else {
+      reviewItems.forEach(it => { if (!extra.includes(it)) it.style.display = ''; });
+      extra.forEach((it, i) => { it.style.display = i < revealed ? '' : 'none'; });
+      if (noResults) noResults.style.display = 'none';
+      if (viewMoreBtn) {
+        viewMoreBtn.style.display = extra.length ? '' : 'none';
+        viewMoreBtn.textContent = revealed >= extra.length ? 'Hide reviews' : 'View more reviews';
+      }
+    }
+  }
+
+  if (viewMoreBtn) {
+    viewMoreBtn.addEventListener('click', () => {
+      if (revealed >= extra.length) {
+        // all shown -> collapse back to the initial state
+        revealed = 0;
+        render();
+        const list = document.querySelector('.review-list');
+        if (list) window.scrollTo({ top: list.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+      } else {
+        revealed++;
+        render();
+      }
+    });
+  }
+
+  function applyFilters() { render(); }
 
   if (searchInput) {
     searchInput.addEventListener('input', () => {
@@ -250,6 +264,8 @@ if (viewMoreBtn && moreReviews) {
   });
 
   document.addEventListener('click', () => dds.forEach(o => o.classList.remove('open')));
+
+  render();
 })();
 
 // Star rating input (Review this Product)
