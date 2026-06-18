@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=31" />
+  <link rel="stylesheet" href="styles.css?v=32" />
 </head>
 <body>
   <!-- ============ SITE HEADER ============ -->
@@ -735,6 +735,23 @@
     <button class="lb-arrow lb-next" aria-label="Next">&#8250;</button>
   </div>
 
-  <script src="script.js?v=31"></script>
+  <!-- ============ CART DRAWER ============ -->
+  <div class="cart-overlay" id="cartOverlay" hidden></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-head">
+      <h3>Your cart</h3>
+      <button class="cart-close" id="cartClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty">Your cart is empty.</p>
+    </div>
+    <div class="cart-foot" id="cartFoot" hidden>
+      <div class="cart-subtotal"><span>Subtotal</span><strong id="cartSubtotal">€0,00</strong></div>
+      <button class="add-to-cart cart-checkout">Checkout</button>
+      <p class="cart-ship">Free shipping on all orders of €89+</p>
+    </div>
+  </aside>
+
+  <script src="script.js?v=32"></script>
 </body>
 </html>

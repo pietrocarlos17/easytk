@@ -266,11 +266,73 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   });
 });
 
-// Add to cart feedback
-document.querySelectorAll('.add-to-cart, .addon-cart').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const original = btn.textContent;
-    btn.textContent = 'Added ✓';
-    setTimeout(() => { btn.textContent = original; }, 1500);
+// ===== Cart =====
+(function () {
+  const PRODUCT = {
+    name: 'Shark CryoGlow™ LED Face Mask in Frosted Green',
+    price: 89,
+    old: 305,
+    img: 'images/gallery/g1.jpg'
+  };
+  const drawer = document.getElementById('cartDrawer');
+  const overlay = document.getElementById('cartOverlay');
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  const subtotalEl = document.getElementById('cartSubtotal');
+  const countEls = document.querySelectorAll('.cart-count');
+  const cartBtn = document.querySelector('.hi-cart');
+  const closeBtn = document.getElementById('cartClose');
+  if (!drawer) return;
+
+  let qty = 0;
+  const money = n => '€' + n.toFixed(2).replace('.', ',');
+
+  function render() {
+    countEls.forEach(c => c.textContent = qty);
+    if (qty === 0) {
+      body.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+      foot.hidden = true;
+      return;
+    }
+    foot.hidden = false;
+    body.innerHTML =
+      '<div class="cart-item">' +
+        '<img src="' + PRODUCT.img + '" alt="" />' +
+        '<div class="cart-item-info">' +
+          '<p class="cart-item-name">' + PRODUCT.name + '</p>' +
+          '<p class="cart-item-price"><s>' + money(PRODUCT.old) + '</s> ' + money(PRODUCT.price) + '</p>' +
+          '<span class="cart-qty"><button data-act="dec" aria-label="Decrease">−</button><span>' + qty + '</span><button data-act="inc" aria-label="Increase">+</button></span>' +
+        '</div>' +
+        '<button class="cart-item-remove" data-act="remove">Remove</button>' +
+      '</div>';
+    subtotalEl.textContent = money(PRODUCT.price * qty);
+  }
+
+  function open() { render(); drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); overlay.hidden = false; document.body.style.overflow = 'hidden'; }
+  function close() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); overlay.hidden = true; document.body.style.overflow = ''; }
+
+  document.querySelectorAll('.add-to-cart:not(.cart-checkout)').forEach(btn => {
+    btn.addEventListener('click', () => { qty++; open(); });
   });
-});
+  if (cartBtn) cartBtn.addEventListener('click', () => { open(); });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', close);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawer.classList.contains('open')) close(); });
+
+  body.addEventListener('click', e => {
+    const act = e.target.dataset.act;
+    if (!act) return;
+    if (act === 'inc') qty++;
+    else if (act === 'dec') qty = Math.max(0, qty - 1);
+    else if (act === 'remove') qty = 0;
+    render();
+  });
+
+  const checkout = document.querySelector('.cart-checkout');
+  if (checkout) checkout.addEventListener('click', () => {
+    checkout.textContent = 'Order placed ✓';
+    setTimeout(() => { checkout.textContent = 'Checkout'; }, 1800);
+  });
+
+  render();
+})();
