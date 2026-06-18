@@ -365,8 +365,8 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
 
   const checkout = document.querySelector('.cart-checkout');
   if (checkout) checkout.addEventListener('click', () => {
-    checkout.textContent = 'Order placed ✓';
-    setTimeout(() => { checkout.textContent = 'Checkout'; }, 1800);
+    const q = Math.max(1, qty);
+    window.location.href = 'https://vellastbeauty.com/cart/53277410984233:' + q;
   });
 
   render();
