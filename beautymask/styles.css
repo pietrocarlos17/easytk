@@ -71,14 +71,15 @@ main { max-width: 2000px; margin: 0 auto; }
   display: flex; align-items: center; justify-content: center;
 }
 
-.g-main { background: linear-gradient(135deg,#8fae9f,#6e8f7f); }
-.g-red { background: linear-gradient(135deg,#e8a0a0,#d46b6b); }
-.g-purple { background: linear-gradient(135deg,#c9a9e0,#9b6fc4); }
-.g-pink { background: linear-gradient(135deg,#e8b0d0,#d480b0); }
-.g-cool { background: linear-gradient(135deg,#d8e8f0,#a9d2ec); }
-.g-stand { background: linear-gradient(135deg,#c0c0c8,#8a8a92); }
-.g-face { background: linear-gradient(135deg,#d8c0e0,#b48cc4); }
-.g-lifestyle { background: linear-gradient(135deg,#e0d0c0,#c0a890); }
+.thumb-img { background-size: cover; background-position: center; }
+.g-main { background-image: url('images/FW312SG_01.jpg'); background-color: #eef0ef; }
+.g-red { background-image: url('images/modes.jpg'); }
+.g-purple { background-image: url('images/remote.jpg'); }
+.g-pink { background-image: url('images/highlight_coverage.jpg'); }
+.g-cool { background-image: url('images/highlight_instachill.jpg'); }
+.g-stand { background-image: url('images/highlight_prove.jpg'); }
+.g-face { background-image: url('images/editorial.jpg'); }
+.g-lifestyle { background-image: url('images/product_support.jpg'); }
 
 /* Main image */
 .main-image {
@@ -90,6 +91,8 @@ main { max-width: 2000px; margin: 0 auto; }
   align-items: center;
   justify-content: center;
 }
+
+.main-photo { max-width: 100%; max-height: 720px; object-fit: contain; }
 
 .badge-no1 {
   position: absolute;
@@ -369,6 +372,7 @@ main { max-width: 2000px; margin: 0 auto; }
 .results-sub { font-size: 17px; color: var(--gray); margin-bottom: 50px; }
 .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; max-width: 1100px; margin: 0 auto; }
 .result-block { text-align: left; }
+.ba-photo { width: 100%; border-radius: 14px; display: block; }
 .ba-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; border-radius: 14px; overflow: hidden; }
 .ba-img { aspect-ratio: 1/1.05; position: relative; }
 .ba-aging-before { background: linear-gradient(135deg,#e8c8b8,#d0a890); }
@@ -388,9 +392,10 @@ main { max-width: 2000px; margin: 0 auto; }
 .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; max-width: 1500px; margin: 0 auto; }
 .benefit { text-align: left; }
 .benefit-img { aspect-ratio: 1/0.92; border-radius: 16px; position: relative; }
-.b-coverage { background: linear-gradient(135deg,#e8a890,#d07868); }
-.b-cool { background: linear-gradient(135deg,#8a6a5a,#4a3a30); }
-.b-clinical { background: linear-gradient(135deg,#f0c8c0,#e8a8b0); }
+.benefit-img { background-size: cover; background-position: center; }
+.b-coverage { background-image: url('images/highlight_coverage.jpg'); }
+.b-cool { background-image: url('images/highlight_instachill.jpg'); }
+.b-clinical { background-image: url('images/highlight_prove.jpg'); }
 .benefit-pill { position: absolute; top: 22px; left: 22px; background: #d6195e; color: #fff; font-size: 18px; font-weight: 700; padding: 10px 20px; border-radius: 30px; }
 .benefit h3 { font-size: 26px; font-weight: 700; margin: 22px 0 10px; }
 .benefit p { font-size: 16px; color: var(--gray); }
@@ -422,8 +427,9 @@ main { max-width: 2000px; margin: 0 auto; }
   position: relative;
   overflow: hidden;
 }
-.m-covered { background: radial-gradient(circle at 60% 45%, #c98cf0, #8a5ac8 60%, #a89a8a); }
-.m-modes { background: linear-gradient(135deg, #cfe4f5, #a9d2ec); display: flex; align-items: center; justify-content: center; }
+.m-covered { background: url('images/highlight_coverage.jpg') center/cover no-repeat; }
+.m-modes { background: url('images/modes.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; }
+.m-modes .modes-remote { display: none; }
 
 .overlay-text {
   position: absolute;
@@ -469,7 +475,7 @@ main { max-width: 2000px; margin: 0 auto; }
 .innovation-sub { font-size: 20px; margin-bottom: 50px; }
 .innovation-media { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1100px; margin: 0 auto; }
 .inno-img { aspect-ratio: 1/1.05; border-radius: 4px; position: relative; }
-.i-face { background: linear-gradient(135deg, #d8c0a8, #b89878); }
+.i-face { background: url('images/editorial.jpg') center/cover no-repeat; }
 .i-thermal { background: radial-gradient(circle at 45% 40%, #2ee6c0, #1a4ad0 55%, #0a1a6a); display: flex; align-items: center; justify-content: center; }
 .inno-col { display: flex; flex-direction: column; }
 .inno-caption { text-align: left; font-size: 17px; color: var(--gray); margin-top: 18px; }
@@ -661,7 +667,7 @@ main { max-width: 2000px; margin: 0 auto; }
   overflow: hidden;
 }
 .owners-img {
-  background: linear-gradient(135deg, #c9a890, #8a6a55);
+  background: url('images/product_support.jpg') center/cover no-repeat;
   min-height: 540px;
 }
 .owners-content { padding: 60px; display: flex; flex-direction: column; }
@@ -786,7 +792,8 @@ main { max-width: 2000px; margin: 0 auto; }
 .innovation-title { font-size: 38px; font-weight: 700; margin-bottom: 14px; }
 
 /* ============ YOU'RE IN CONTROL MEDIA ============ */
-.m-control { background: linear-gradient(135deg, #d8dde2, #aeb6bd); display: flex; align-items: center; justify-content: center; }
+.m-control { background: url('images/remote.jpg') center/cover no-repeat; display: flex; align-items: center; justify-content: center; }
+.m-control .control-remote { display: none; }
 .control-remote {
   width: 130px; height: 320px;
   background: #fff;

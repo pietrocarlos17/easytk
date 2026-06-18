@@ -10,9 +10,11 @@ const mainGradients = {
   7: 'linear-gradient(135deg,#d8c0e0,#b48cc4)',
   8: 'linear-gradient(135deg,#e0d0c0,#c0a890)'
 };
+const mainPhoto = document.querySelector('.main-photo');
 thumbs.forEach(t => t.addEventListener('click', () => {
   thumbs.forEach(x => x.classList.remove('active'));
   t.classList.add('active');
+  if (mainPhoto && t.dataset.src) mainPhoto.src = t.dataset.src;
 }));
 
 // Read more
