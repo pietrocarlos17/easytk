@@ -346,8 +346,12 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   function open() { render(); drawer.classList.add('open'); drawer.setAttribute('aria-hidden', 'false'); overlay.hidden = false; document.body.style.overflow = 'hidden'; }
   function close() { drawer.classList.remove('open'); drawer.setAttribute('aria-hidden', 'true'); overlay.hidden = true; document.body.style.overflow = ''; }
 
+  function trackAddToCart() {
+    try { if (window.fbq) fbq('track', 'AddToCart', { content_name: PRODUCT.name, content_type: 'product', value: PRODUCT.price, currency: 'GBP' }); } catch (e) {}
+    try { if (window.ttq) ttq.track('AddToCart', { content_name: PRODUCT.name, content_type: 'product', value: PRODUCT.price, currency: 'GBP' }); } catch (e) {}
+  }
   document.querySelectorAll('.add-to-cart:not(.cart-checkout)').forEach(btn => {
-    btn.addEventListener('click', () => { qty++; open(); });
+    btn.addEventListener('click', () => { qty++; open(); trackAddToCart(); });
   });
   if (cartBtn) cartBtn.addEventListener('click', () => { open(); });
   if (closeBtn) closeBtn.addEventListener('click', close);
@@ -366,6 +370,8 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
   const checkout = document.querySelector('.cart-checkout');
   if (checkout) checkout.addEventListener('click', () => {
     const q = Math.max(1, qty);
+    try { if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'GBP', num_items: q }); } catch (e) {}
+    try { if (window.ttq) ttq.track('InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'GBP', quantity: q }); } catch (e) {}
     window.location.href = 'https://vellastbeauty.com/cart/53277410984233:' + q;
   });
 
