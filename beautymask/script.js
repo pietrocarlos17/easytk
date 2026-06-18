@@ -60,17 +60,6 @@ swatches.forEach((s, i) => s.addEventListener('click', () => {
   colorLabel.textContent = colorNames[i];
 }));
 
-// Quantity stepper
-const qtyValue = document.querySelector('.qty-value');
-let qty = 1;
-document.querySelector('.minus').addEventListener('click', () => {
-  if (qty > 1) qty--;
-  qtyValue.textContent = qty;
-});
-document.querySelector('.plus').addEventListener('click', () => {
-  qty++;
-  qtyValue.textContent = qty;
-});
 
 // Accordions
 document.querySelectorAll('.accordion').forEach(acc => {
