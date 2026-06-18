@@ -997,7 +997,7 @@ main { max-width: 2000px; margin: 0 auto; }
   .product > * { min-width: 0; }
   .gallery { grid-template-columns: 1fr; gap: 0; min-width: 0; }
   .thumbs { display: none; }
-  .gallery-dots { display: flex; justify-content: center; gap: 8px; padding: 0; }
+  .gallery-dots { display: flex; justify-content: center; gap: 8px; padding: 12px 0 2px; }
   .gd { width: 9px; height: 9px; border-radius: 50%; background: #d0d0d4; }
   .gd.active { background: var(--black); }
   .m-product-title { display: block; font-size: 30px; font-weight: 700; line-height: 1.15; margin-bottom: 16px; }
