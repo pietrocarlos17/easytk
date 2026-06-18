@@ -8,7 +8,10 @@
   --accent: #4a4458;
 }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior-x: none;
+}
 
 body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -16,6 +19,10 @@ body {
   background: var(--bg);
   line-height: 1.5;
   padding-bottom: 90px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  overscroll-behavior-x: none;
 }
 
 .top-accent {
@@ -1044,8 +1051,12 @@ main { max-width: 2000px; margin: 0 auto; }
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     padding-bottom: 8px;
+    overscroll-behavior-x: contain;
   }
   .result-block, .benefit { flex: 0 0 88%; scroll-snap-align: center; }
+
+  /* contain horizontal scroll on all carousels so the page doesn't rock */
+  .ugc-row, .review-images { overscroll-behavior-x: contain; }
   .footnotes { margin-top: 30px; }
 }
 
