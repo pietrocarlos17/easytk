@@ -372,7 +372,7 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
     const q = Math.max(1, qty);
     try { if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'USD', num_items: q }); } catch (e) {}
     try { if (window.ttq) ttq.track('InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'USD', quantity: q }); } catch (e) {}
-    window.location.href = 'https://vellastbeauty.com/cart/53278312300841:' + q;
+    window.location.href = 'https://vellastbeauty.com/cart/53277410984233:' + q;
   });
 
   render();
