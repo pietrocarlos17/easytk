@@ -367,12 +367,30 @@ document.querySelectorAll('.rate-stars button').forEach((btn, i, all) => {
     render();
   });
 
+  // ===== Ciclo de checkout entre lojas (London time) =====
+  // Hoje (sáb 2026-06-20) → atonastore. A partir de domingo 2026-06-21 00:00 London:
+  // alterna a cada 2h. Slots: 00-02 atona, 02-04 vellast, 04-06 atona, ...
+  function pickCheckoutUrl(q) {
+    var ATONA   = 'https://atonastore.com/cart/59928823464270:'   + q;
+    var VELLAST = 'https://vellastbeauty.com/cart/53277410984233:' + q;
+    var cycleStart = Date.UTC(2026, 5, 20, 23, 0, 0); // dom 00:00 BST = sáb 23:00 UTC
+    if (Date.now() < cycleStart) return ATONA;
+    var parts = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London', hour: '2-digit', hour12: false
+    }).formatToParts(new Date());
+    var hour = 0;
+    for (var i = 0; i < parts.length; i++) if (parts[i].type === 'hour') { hour = parseInt(parts[i].value, 10); break; }
+    if (hour === 24) hour = 0;
+    var slot = Math.floor(hour / 2);
+    return (slot % 2 === 0) ? ATONA : VELLAST;
+  }
+
   const checkout = document.querySelector('.cart-checkout');
   if (checkout) checkout.addEventListener('click', () => {
     const q = Math.max(1, qty);
     try { if (window.fbq) fbq('track', 'InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'USD', num_items: q }); } catch (e) {}
     try { if (window.ttq) ttq.track('InitiateCheckout', { content_name: PRODUCT.name, value: PRODUCT.price * q, currency: 'USD', quantity: q }); } catch (e) {}
-    window.location.href = 'https://vellastbeauty.com/cart/53277410984233:' + q;
+    window.location.href = pickCheckoutUrl(q);
   });
 
   render();
