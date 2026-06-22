@@ -7,11 +7,4 @@ server/data.db-wal
 build/
 .DS_Store
 
-# Product photos — adicione localmente, não commitar
-public/products/**/*.jpg
-public/products/**/*.JPG
-public/products/**/*.jpeg
-public/products/**/*.png
-public/products/**/*.PNG
-public/products/**/*.webp
-public/products/**/*.avif
+# Product photos (outlet-gafas) — devem ser commitadas para aparecer no deploy da Vercel
