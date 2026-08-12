@@ -1063,6 +1063,13 @@
     sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
   });
 
+  // ── VARIANT IDs ──
+  const variants = {
+    'Black':        { '2XS':'60352328073550','XS':'60352328106318','S':'60352328139086','M':'60352328171854','L':'60352328204622','XL':'60352328237390','2XL':'60352328270158' },
+    'Night Indigo': { '2XS':'60352328302926','XS':'60352328335694','S':'60352328368462','M':'60352328401230','L':'60352328433998','XL':'60352328466766','2XL':'60352328499534' },
+    'Maroon':       { '2XS':'60352328532302','XS':'60352328565070','S':'60352328597838','M':'60352328630606','L':'60352328663374','XL':'60352328696142','2XL':'60352328728910' }
+  };
+
   // ── ADD TO BAG ──
   function addToBag() {
     const colour = document.getElementById('colour-name').textContent;
@@ -1078,15 +1085,11 @@
     }
     errEl.style.display = 'none';
 
-    Cart.add({
-      id: 'activeset-' + colour + '-' + sizeBtn.textContent,
-      productId: 'activeset',
-      name: 'ADIDAS Originals Sport Superstar Active Set',
-      colour: colour,
-      size: sizeBtn.textContent,
-      price: 99.00,
-      image: colorData[colour].images[0]
-    });
+    const variantId = variants[colour] && variants[colour][sizeBtn.textContent];
+    if (variantId) {
+      window.location.href = 'https://atonastore.com/cart/' + variantId + ':1';
+    }
+  }
 
     showToast('Added to bag ✓');
   }

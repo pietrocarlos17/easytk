@@ -571,6 +571,13 @@
     sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
   });
 
+  // ── VARIANT IDs ──
+  const variants = {
+    'Black':        { '2XS':'60352336429390','XS':'60352336462158','S':'60352336494926','M':'60352336527694','L':'60352336560462','XL':'60352336593230','2XL':'60352336625998' },
+    'Night Indigo': { '2XS':'60352336658766','XS':'60352336691534','S':'60352336724302','M':'60352336757070','L':'60352336789838','XL':'60352336822606','2XL':'60352336855374' },
+    'Maroon':       { '2XS':'60352336888142','XS':'60352336920910','S':'60352336953678','M':'60352336986446','L':'60352337019214','XL':'60352337051982','2XL':'60352337084750' }
+  };
+
   function addToBag() {
     const colour = document.getElementById('colour-name').textContent;
     const sizeBtn = document.querySelector('.size-btn.active');
@@ -583,16 +590,10 @@
       return;
     }
     errEl.style.display = 'none';
-    Cart.add({
-      id: 'bratee2piece-' + colour + '-' + sizeBtn.textContent,
-      productId: 'bratee2piece',
-      name: 'ADIDAS Originals Sport Superstar Bra Tee 2-Piece Set',
-      colour: colour,
-      size: sizeBtn.textContent,
-      price: 89.00,
-      image: colorData[colour].images[0] || null
-    });
-    showToast('Added to bag ✓');
+    const variantId = variants[colour] && variants[colour][sizeBtn.textContent];
+    if (variantId) {
+      window.location.href = 'https://atonastore.com/cart/' + variantId + ':1';
+    }
   }
 
   function showToast(msg) {

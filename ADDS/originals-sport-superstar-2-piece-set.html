@@ -1044,6 +1044,13 @@
     sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
   });
 
+  // ── VARIANT IDs ──
+  const variants = {
+    'Black':        { '2XS':'60352228131150','XS':'60352228163918','S':'60352228196686','M':'60352228229454','L':'60352228262222','XL':'60352228294990','2XL':'60352228327758' },
+    'Night Indigo': { '2XS':'60352228360526','XS':'60352228393294','S':'60352228426062','M':'60352228458830','L':'60352228491598','XL':'60352228524366','2XL':'60352228557134' },
+    'Maroon':       { '2XS':'60352228589902','XS':'60352228622670','S':'60352228655438','M':'60352228688206','L':'60352228720974','XL':'60352228753742','2XL':'60352228786510' }
+  };
+
   // ── ADD TO BAG ──
   function addToBag() {
     const colour = document.getElementById('colour-name').textContent;
@@ -1059,17 +1066,10 @@
     }
     errEl.style.display = 'none';
 
-    Cart.add({
-      id: 'trainingset1-' + colour + '-' + sizeBtn.textContent,
-      productId: 'trainingset1',
-      name: 'ADIDAS Originals Sport Superstar 2-Piece Set',
-      colour: colour,
-      size: sizeBtn.textContent,
-      price: 99.00,
-      image: colorData[colour].images[0]
-    });
-
-    showToast('Added to bag ✓');
+    const variantId = variants[colour] && variants[colour][sizeBtn.textContent];
+    if (variantId) {
+      window.location.href = 'https://atonastore.com/cart/' + variantId + ':1';
+    }
   }
 
   function showToast(msg) {
