@@ -144,7 +144,7 @@ const CartDrawer = {
         <div class="cd-row"><span>Subtotal</span><span>${this.fmt(sub)}</span></div>
         <div class="cd-row"><span>Delivery</span><span class="cd-delivery">Free</span></div>
         <div class="cd-row total"><span>Total</span><span>${this.fmt(sub)}</span></div>
-        <a class="cd-checkout" href="#">Proceed to Checkout →</a>
+        <a class="cd-checkout" href="#" onclick="CartDrawer.checkout(); return false;">Proceed to Checkout →</a>
       </div>`;
   },
 
@@ -170,6 +170,14 @@ const CartDrawer = {
   removeItem(id) {
     Cart.remove(id);
     this.render();
+  },
+
+  checkout() {
+    const items = Cart.get();
+    const parts = items.filter(function(i) { return i.variantId; }).map(function(i) { return i.variantId + ':' + i.qty; });
+    if (parts.length) {
+      window.location.href = 'https://atonastore.com/cart/' + parts.join(',');
+    }
   }
 };
 

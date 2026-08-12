@@ -1087,11 +1087,17 @@
 
     const variantId = variants[colour] && variants[colour][sizeBtn.textContent];
     if (variantId) {
-      window.location.href = 'https://atonastore.com/cart/' + variantId + ':1';
+      Cart.add({
+        id: 'activeset-' + colour + '-' + sizeBtn.textContent,
+        variantId: variantId,
+        name: 'ADIDAS Originals Sport Superstar Active Set',
+        colour: colour,
+        size: sizeBtn.textContent,
+        price: 99.00,
+        image: currentImages[0] || null
+      });
+      CartDrawer.open();
     }
-  }
-
-    showToast('Added to bag ✓');
   }
 
   function showToast(msg) {

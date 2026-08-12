@@ -597,7 +597,16 @@
   function handleAddToBag() {
     if (!selectedSize) { scrollToSize(); return; }
     const variantId = colours[currentKey].variants[selectedSize.eu];
-    window.location.href = 'https://atonastore.com/cart/' + variantId + ':1';
+    Cart.add({
+      id: 'hyperboost-' + currentKey + '-' + selectedSize.eu,
+      variantId: variantId,
+      name: 'ADIDAS HyperBoost Edge',
+      colour: currentKey.charAt(0).toUpperCase() + currentKey.slice(1),
+      size: 'UK ' + selectedSize.uk,
+      price: 109.00,
+      image: colours[currentKey].imgs[0] || null
+    });
+    CartDrawer.open();
   }
 
   buildThumbs('black');
