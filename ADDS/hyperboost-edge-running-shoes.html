@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HyperBoost Edge Running Shoes | ADDS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── PROMO BAR ── */
+    .promo-bar {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 16px;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 7px 16px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .nav-logo { display: flex; align-items: center; justify-content: center; text-decoration: none; }
+    .nav-icons { display: flex; gap: 14px; align-items: center; justify-content: flex-end; }
+    .nav button, .nav-hamburger {
+      background: none; border: none; cursor: pointer; padding: 0;
+      display: flex; align-items: center;
+    }
+    .nav svg { width: 22px; height: 22px; fill: none; stroke: #000; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .nav-account-wrap { position: relative; display: flex; }
+    .nav-badge {
+      position: absolute; top: -5px; right: -7px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #6a9f7e; color: #fff;
+      font-size: 9px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 10px 16px 0;
+      font-size: 12px;
+      color: #767677;
+      display: flex; gap: 4px; align-items: center; flex-wrap: wrap;
+    }
+    .breadcrumb a { color: #767677; text-decoration: none; }
+    .breadcrumb span { color: #767677; }
+
+    /* ── PRODUCT ── */
+    .product { padding: 12px 16px 0; }
+
+    .tag-coming-soon {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #000;
+      border: 1px solid #000;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+      text-transform: none;
+    }
+
+    .rating-row {
+      display: flex; align-items: center; gap: 6px;
+      margin-bottom: 6px;
+    }
+    .stars { color: #000; letter-spacing: 1px; font-size: 13px; }
+    .review-link { font-size: 12px; color: #767677; text-decoration: underline; cursor: pointer; background: none; border: none; font-family: inherit; }
+
+    h1.product-title {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin-bottom: 10px;
+      letter-spacing: 0.1px;
+    }
+
+    .price-main { font-size: 18px; font-weight: 700; margin-bottom: 3px; }
+
+    /* ── GALLERY ── */
+    .gallery { margin-top: 16px; }
+    .gallery-main {
+      width: 100%; aspect-ratio: 3/4;
+      background: #f5f5f5; overflow: hidden;
+      position: relative; display: block;
+    }
+    .gallery-main img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 0.5px;
+      transition: background 0.3s ease;
+    }
+    .gallery-thumbs {
+      display: flex; gap: 4px; margin-top: 4px;
+      overflow-x: auto; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .gallery-thumbs::-webkit-scrollbar { display: none; }
+    .gallery-thumb {
+      flex: 0 0 calc(25% - 3px); aspect-ratio: 3/4;
+      background: #f0f0f0; overflow: hidden;
+      cursor: pointer; position: relative;
+      scroll-snap-align: start; transition: opacity 0.2s;
+      border: 2px solid transparent;
+    }
+    .gallery-thumb.active { border-color: #000; }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; }
+    .gallery-thumb-placeholder {
+      width: 100%; height: 100%;
+      transition: background 0.3s ease;
+    }
+
+    /* ── COLOURS ── */
+    .section-pad { padding: 0 16px; }
+
+    .colour-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin: 16px 0 10px;
+    }
+
+    .swatches {
+      display: flex; gap: 8px;
+      overflow-x: auto; padding-bottom: 4px;
+      margin-bottom: 10px;
+    }
+    .swatch {
+      width: 56px; height: 56px; flex-shrink: 0;
+      border: 2px solid transparent;
+      overflow: hidden; cursor: pointer;
+      background: #f5f5f5;
+    }
+    .swatch.active { border-color: #000; }
+    .swatch-fill { width: 100%; height: 100%; }
+
+    .colour-name { font-size: 13px; margin-bottom: 12px; color: #000; }
+
+    /* ── PROMO EXCLUSION ── */
+    .promo-excl { font-size: 13px; color: #000; margin-bottom: 20px; line-height: 1.4; }
+
+    /* ── SIZE SELECTOR ── */
+    .sizes-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+
+    .size-tabs {
+      display: flex; gap: 0;
+      border-bottom: 1px solid #e8e8e8;
+      margin-bottom: 12px;
+    }
+    .size-tab {
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 14px; font-weight: 400;
+      padding: 8px 16px 10px;
+      color: #767677;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+    }
+    .size-tab.active { font-weight: 700; color: #000; border-bottom-color: #000; }
+
+    .size-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .size-btn {
+      background: #f5f5f5; border: 1px solid transparent;
+      padding: 14px 4px; text-align: center;
+      font-family: inherit; font-size: 13px; font-weight: 400;
+      cursor: pointer; color: #000;
+    }
+    .size-btn:hover { border-color: #000; }
+    .size-btn.active { border-color: #000; background: #fff; font-weight: 700; }
+    .size-btn.out { color: #bbb; cursor: default; text-decoration: line-through; }
+
+    .size-guide {
+      font-size: 13px; font-weight: 700;
+      text-decoration: underline; color: #000;
+      display: inline-block; margin-bottom: 16px;
+      background: none; border: none; cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* ── SIZE GUIDE MODAL ── */
+    .sg-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.45);
+    }
+    .sg-overlay.open { display: block; }
+
+    .sg-drawer {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: #fff;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px 16px 32px;
+      transform: translateY(100%);
+      transition: transform .3s ease;
+    }
+    .sg-overlay.open .sg-drawer { transform: translateY(0); }
+
+    .sg-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .sg-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .sg-close {
+      background: none; border: none; cursor: pointer;
+      font-size: 22px; line-height: 1; color: #000; padding: 0;
+    }
+
+    .sg-scroll-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sg-table {
+      width: 100%; border-collapse: collapse;
+      min-width: 400px;
+      font-size: 13px;
+    }
+    .sg-table thead tr { background: #000; color: #fff; }
+    .sg-table thead th {
+      padding: 14px 12px; text-align: center;
+      font-weight: 700; font-size: 13px; line-height: 1.3;
+    }
+    .sg-table thead th:first-child { text-align: left; }
+    .sg-table tbody td {
+      padding: 16px 12px; text-align: center;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+    .sg-table tbody td:first-child { font-weight: 700; text-align: left; }
+    .sg-table tbody tr td:nth-child(even) { background: #eef3f8; }
+    .sg-scroll-hint { font-size: 13px; color: #767677; margin-top: 12px; }
+
+    .true-to-size {
+      display: flex; align-items: flex-start; gap: 10px;
+      border: 1px solid #e8e8e8;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+      font-size: 13px; line-height: 1.5;
+    }
+    .true-to-size-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── ADD TO BAG ── */
+    .btn-add-bag {
+      display: block; width: 100%; padding: 16px;
+      background: #000; color: #fff; border: none;
+      font-size: 14px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; font-family: inherit;
+      cursor: pointer; margin-bottom: 12px;
+    }
+    .btn-add-bag:active { opacity: 0.85; }
+    .btn-add-bag.shake { animation: shake 0.3s ease; }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: #000; color: #fff; padding: 12px 20px;
+      font-size: 13px; font-weight: 600; letter-spacing: 0.3px;
+      opacity: 0; transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none; z-index: 999; white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── SIZE ERROR ── */
+    .size-error {
+      font-size: 12px; color: #c0392b; margin-bottom: 10px;
+      display: none; font-weight: 600;
+    }
+
+    /* ── ACCORDION ── */
+    .accordion { border-top: 1px solid #e8e8e8; margin: 0 16px; }
+    .acc-item { border-bottom: 1px solid #e8e8e8; }
+    .acc-btn {
+      width: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 0;
+      background: none; border: none; cursor: pointer;
+      font-size: 14px; font-weight: 700;
+      font-family: inherit; text-align: left; color: #000;
+    }
+    .acc-btn .acc-right { display: flex; align-items: center; gap: 8px; }
+    .acc-btn .stars-sm { font-size: 11px; letter-spacing: 1px; }
+    .acc-chev { font-size: 10px; transition: transform .2s; }
+    .acc-btn[aria-expanded="true"] .acc-chev { transform: rotate(180deg); }
+    .acc-body { display: none; padding-bottom: 16px; font-size: 13px; color: #000; line-height: 1.6; }
+    .acc-body.open { display: block; }
+    .acc-body ul { padding-left: 18px; }
+    .acc-body li { margin-bottom: 4px; }
+
+    /* ── BACK TO TOP ── */
+    .back-top {
+      display: flex; justify-content: center;
+      padding: 16px;
+      border-top: 1px solid #e8e8e8;
+    }
+    .back-top button {
+      background: none; border: none; cursor: pointer;
+      font-size: 13px; color: #000; text-decoration: underline;
+      font-family: inherit;
+    }
+
+    /* ── LOYALTY ── */
+    .loyalty {
+      background: #000; color: #fff;
+      padding: 28px 16px; text-align: center;
+    }
+    .loyalty h2 { font-size: 19px; font-weight: 700; text-transform: uppercase; line-height: 1.2; margin-bottom: 18px; }
+    .loyalty-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: #000;
+      border: none; padding: 13px 20px;
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; cursor: pointer; font-family: inherit;
+      text-decoration: none;
+    }
+    .loyalty-form { width: 100%; max-width: 320px; margin: 0 auto 16px; }
+    .loyalty-input-wrap { position: relative; overflow: hidden; height: 48px; margin-bottom: 12px; }
+    .loyalty-input {
+      width: 100%; height: 48px; padding: 0 14px;
+      background: transparent; border: 1px solid #fff;
+      color: #fff; font-size: 14px; font-family: inherit;
+      outline: none; box-sizing: border-box;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1), opacity 0.45s ease;
+    }
+    .loyalty-input::placeholder { color: rgba(255,255,255,0.55); }
+    .loyalty-input.fly-up { transform: translateY(-60px); opacity: 0; }
+    .loyalty-success {
+      position: absolute; bottom: -48px; left: 0; right: 0; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: #fff; letter-spacing: 0.3px;
+      transition: transform 0.45s cubic-bezier(.4,0,.2,1) 0.1s;
+    }
+    .loyalty-success.fly-up { transform: translateY(-48px); }
+    .loyalty-success svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; margin-right: 6px; flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid #e8e8e8; }
+
+    .footer-cols {
+      padding: 28px 16px 20px;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .footer-col { border-bottom: 1px solid #e8e8e8; }
+    .footer-col-toggle {
+      width: 100%; display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; background: none; border: none; cursor: pointer;
+      font-size: 13px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; font-family: inherit; color: #000; text-align: left;
+    }
+    .footer-col-toggle .fc-chev { font-size: 10px; transition: transform .2s; }
+    .footer-col-toggle[aria-expanded="true"] .fc-chev { transform: rotate(180deg); }
+    .footer-col-body { display: none; padding-bottom: 14px; }
+    .footer-col-body.open { display: block; }
+    .footer-col-body a {
+      display: block; color: #767677; text-decoration: none;
+      font-size: 13px; line-height: 2.4;
+    }
+    .footer-col-body a:hover { color: #000; }
+
+    .footer-social {
+      padding: 20px 16px;
+      display: flex; gap: 20px; align-items: center; justify-content: center;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .footer-social a {
+      color: #000; text-decoration: none;
+      display: flex; align-items: center;
+    }
+    .footer-social svg { width: 20px; height: 20px; fill: currentColor; }
+
+    .footer-payments {
+      padding: 16px 16px;
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .footer-pay-badge {
+      border: 1px solid #e0e0e0; border-radius: 3px;
+      padding: 4px 8px; font-size: 10px; font-weight: 700;
+      color: #444; letter-spacing: 0.3px; white-space: nowrap;
+      background: #fafafa;
+    }
+
+    .footer-bottom {
+      padding: 16px 16px 24px;
+      text-align: center;
+    }
+    .footer-legal {
+      display: flex; flex-wrap: wrap; gap: 0 16px; margin-bottom: 12px;
+      justify-content: center;
+    }
+    .footer-legal a { color: #767677; text-decoration: none; font-size: 11px; line-height: 2.2; }
+    .footer-copy { font-size: 11px; color: #767677; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<!-- PROMO -->
+<div class="promo-bar">FREE UK DELIVERY FOR NEW COLLECTIONS</div>
+
+<!-- NAV -->
+<header>
+  <nav class="nav">
+    <button class="nav-hamburger" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+    </button>
+    <a class="nav-logo" href="home.html" aria-label="ADDS">
+      <img src="logo.jpg" alt="ADDS" style="height:36px;width:auto;display:block;" />
+    </a>
+    <div class="nav-icons">
+      <button aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/></svg>
+      </button>
+      <button onclick="CartDrawer.open()" aria-label="Bag" style="position:relative;display:flex;align-items:center;background:none;border:none;cursor:pointer;padding:0;">
+        <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#000;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></svg>
+        <span class="cart-badge" style="display:none;position:absolute;top:-5px;right:-7px;width:16px;height:16px;border-radius:50%;background:#000;color:#fff;font-size:9px;font-weight:700;align-items:center;justify-content:center;">0</span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="home.html">Home</a><span>/</span>
+  <a href="women-shoes.html">Women</a><span>/</span>
+  <span>Shoes</span>
+</nav>
+
+<!-- PRODUCT -->
+<div class="product">
+  <div class="tag-coming-soon">New</div>
+
+  <div class="rating-row">
+    <span class="stars">★★★★★</span>
+    <button class="review-link" id="open-reviews">(24)</button>
+  </div>
+
+  <h1 class="product-title">HyperBoost Edge Running Shoes</h1>
+
+  <div class="price-main">£119.00</div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+  <div class="gallery-main" id="gallery-main">
+    <div class="gallery-placeholder" id="gallery-main-placeholder" style="background:#111;"></div>
+  </div>
+  <div class="gallery-thumbs" id="gallery-thumbs">
+    <div class="gallery-thumb active" data-index="0" onclick="selectThumb(this)">
+      <div class="gallery-thumb-placeholder" style="background:#111;"></div>
+    </div>
+    <div class="gallery-thumb" data-index="1" onclick="selectThumb(this)">
+      <div class="gallery-thumb-placeholder" style="background:#111;"></div>
+    </div>
+    <div class="gallery-thumb" data-index="2" onclick="selectThumb(this)">
+      <div class="gallery-thumb-placeholder" style="background:#111;"></div>
+    </div>
+    <div class="gallery-thumb" data-index="3" onclick="selectThumb(this)">
+      <div class="gallery-thumb-placeholder" style="background:#111;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT DETAILS -->
+<div class="section-pad">
+
+  <!-- COLOURS -->
+  <div class="colour-title">Colours</div>
+  <div class="swatches" role="radiogroup">
+    <div class="swatch active" data-colour="Core Black / Carbon / Carbon" title="Core Black / Carbon / Carbon" tabindex="0" role="radio" aria-checked="true">
+      <div class="swatch-fill" style="background-image:url('images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif');background-size:cover;background-position:center;"></div>
+    </div>
+    <div class="swatch" data-colour="Cloud White / Silver Metallic / Zero Metalic" title="Cloud White / Silver Metallic / Zero Metalic" tabindex="0" role="radio" aria-checked="false">
+      <div class="swatch-fill" style="background-image:url('images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM1.avif');background-size:cover;background-position:center;"></div>
+    </div>
+    <div class="swatch" data-colour="Cloud White / Clear Pink" title="Cloud White / Clear Pink" tabindex="0" role="radio" aria-checked="false">
+      <div class="swatch-fill" style="background-image:url('images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_01_side.webp');background-size:cover;background-position:center;"></div>
+    </div>
+  </div>
+  <div class="colour-name" id="colour-name">Core Black / Carbon / Carbon</div>
+
+  <!-- PROMO EXCLUSION -->
+  <p class="promo-excl">This product is excluded from all promotional discounts and offers.</p>
+
+  <!-- SIZES -->
+  <div class="sizes-title">Sizes</div>
+  <div class="size-tabs">
+    <button class="size-tab active" onclick="switchTab(this)">UK</button>
+  </div>
+  <div class="size-grid">
+    <button class="size-btn" onclick="selectSize(this)">3</button>
+    <button class="size-btn" onclick="selectSize(this)">3.5</button>
+    <button class="size-btn" onclick="selectSize(this)">4</button>
+    <button class="size-btn" onclick="selectSize(this)">4.5</button>
+    <button class="size-btn" onclick="selectSize(this)">5</button>
+    <button class="size-btn" onclick="selectSize(this)">5.5</button>
+    <button class="size-btn" onclick="selectSize(this)">6</button>
+    <button class="size-btn" onclick="selectSize(this)">6.5</button>
+    <button class="size-btn" onclick="selectSize(this)">7</button>
+    <button class="size-btn" onclick="selectSize(this)">7.5</button>
+    <button class="size-btn" onclick="selectSize(this)">8</button>
+    <button class="size-btn out">8.5</button>
+  </div>
+  <div class="true-to-size">
+    <span class="true-to-size-icon">ⓘ</span>
+    <span><strong>True to size.</strong> We recommend ordering your usual size.</span>
+  </div>
+
+  <!-- ADD TO BAG -->
+  <p class="size-error" id="size-error">Please select a size</p>
+  <button class="btn-add-bag" id="btn-add-bag" onclick="addToBag()">Add to Bag</button>
+
+  <!-- ACCORDION -->
+  <div class="accordion">
+
+    <div class="acc-item">
+      <button class="acc-btn" aria-expanded="false" onclick="toggleAcc(this)">
+        <span>Reviews (24)</span>
+        <div class="acc-right">
+          <span class="stars-sm">★★★★★</span>
+          <span class="acc-chev">▼</span>
+        </div>
+      </button>
+      <div class="acc-body">
+        <p style="font-size:13px;color:#767677;">No reviews yet. Be the first to share your experience.</p>
+        <div id="star-filter-wrap" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+          <button onclick="voteReview(this,5)" style="border:1px solid #000;background:#fff;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;">★ 5</button>
+          <button onclick="voteReview(this,4)" style="border:1px solid #000;background:#fff;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;">★ 4</button>
+          <button onclick="voteReview(this,3)" style="border:1px solid #000;background:#fff;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;">★ 3</button>
+          <button onclick="voteReview(this,2)" style="border:1px solid #000;background:#fff;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;">★ 2</button>
+          <button onclick="voteReview(this,1)" style="border:1px solid #000;background:#fff;padding:8px 14px;font-size:13px;cursor:pointer;font-family:inherit;">★ 1</button>
+        </div>
+        <div id="star-vote-msg" style="display:none;padding:14px 0;font-size:13px;color:#000;">
+          <span style="font-size:18px;margin-right:6px;">✓</span> Thanks for your rating! Your feedback helps other shoppers.
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-btn" aria-expanded="false" onclick="toggleAcc(this)">
+        Description
+        <span class="acc-chev">▼</span>
+      </button>
+      <div class="acc-body">
+        <p style="font-weight:700;text-transform:uppercase;margin-bottom:12px;">Running shoes with HyperBoost Pro foam for comfort &amp; energy return while training.</p>
+        <p style="margin-bottom:12px;">Hyperboost Edge introduces a new era of road running by combining maximum cushioning, high energy return and lightweight performance in one shoe.</p>
+        <p style="margin-bottom:12px;">The shoe combines three breakthrough technologies: the new Hyperboost Pro midsole, a PRIMEWEAVE upper and a LIGHTTRAXION outsole to balance comfort and responsiveness in every stride.</p>
+        <p style="margin-bottom:12px;">Crafted with no plates or stiffening elements, a new foam works naturally through the gait cycle creating a lightweight and propulsive ride.</p>
+        <p>At the heart of this new running experience is the Hyperboost Pro foam, a high-performance material that provides maximum cushioning, with no compromises. Drawing on adidas' elite racing midsole technologies, the new foam formulation delivers an experience optimized for every type of run, from daily sessions to high mileage training.</p>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <button class="acc-btn" aria-expanded="false" onclick="toggleAcc(this)">
+        Care
+        <span class="acc-chev">▼</span>
+      </button>
+      <div class="acc-body">
+        <p style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:14px;">Cleaning Instructions</p>
+        <ul>
+          <li>Remove insoles and laces before cleaning</li>
+          <li>Wipe upper with a damp cloth and mild soap</li>
+          <li>Air dry at room temperature — do not tumble dry</li>
+          <li>Do not machine wash</li>
+          <li>Do not expose to direct sunlight for extended periods</li>
+          <li>Store in a cool, dry place away from direct heat</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ADICLUB -->
+<section style="padding:0;margin:0;background:#000;">
+  <img src="images/adiclub-banner.avif" alt="AdiClub" style="width:100%;display:block;object-fit:cover;" />
+  <div style="padding:28px 20px;color:#fff;">
+    <p style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:10px;">AdiClub</p>
+    <h2 style="font-size:22px;font-weight:900;text-transform:uppercase;line-height:1.15;margin-bottom:12px;color:#fff;">An exclusive club,<br>for exclusive women.</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:20px;">Be the first to get the best new arrivals — drops, limited editions and member-only offers.</p>
+  </div>
+</section>
+
+<!-- REVIEW CTA -->
+<section style="padding:24px 16px;border-top:1px solid #e8e8e8;">
+  <h3 style="font-size:18px;font-weight:700;text-transform:uppercase;margin-bottom:6px;">Your Review Matters</h3>
+  <p style="font-size:13px;color:#000;line-height:1.5;">We're always working to improve. Share your experience to help other customers.</p>
+</section>
+
+<!-- BACK TO TOP -->
+<div class="back-top">
+  <button onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Back to top</button>
+</div>
+
+<!-- LOYALTY -->
+<section class="loyalty">
+  <h2>Join AdiClub &amp;<br>Earn 500 Redeemable Points<br>on your next purchase</h2>
+  <form class="loyalty-form" onsubmit="loyaltySubmit(event)">
+    <div class="loyalty-input-wrap">
+      <input class="loyalty-input" id="loyalty-email" type="email" placeholder="Enter your email address" autocomplete="email" />
+      <div class="loyalty-success" id="loyalty-success">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        You're in! Check your inbox.
+      </div>
+    </div>
+    <button type="submit" class="loyalty-btn" style="width:100%;justify-content:center;">Sign Up for Free →</button>
+  </form>
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+  <div class="footer-social">
+    <!-- Instagram -->
+    <a href="#" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <!-- TikTok -->
+    <a href="#" aria-label="TikTok">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+    </a>
+    <!-- X / Twitter -->
+    <a href="#" aria-label="X">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L2.25 2.25h6.978l4.266 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+    </a>
+    <!-- YouTube -->
+    <a href="#" aria-label="YouTube">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    </a>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-legal">
+      <a href="#">Cookie Settings</a>
+      <a href="#">Personal Data Requests</a>
+      <a href="#">Terms &amp; Conditions</a>
+      <a href="#">Navigation Terms</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+    <p class="footer-copy">© 2025 Adidas. All rights reserved.</p>
+  </div>
+
+</footer>
+
+<script>
+  function toggleFooterCol(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+    body.classList.toggle('open', !isOpen);
+  }
+</script>
+
+<script>
+  function voteReview(btn, stars) {
+    const wrap = document.getElementById('star-filter-wrap');
+    const msg = document.getElementById('star-vote-msg');
+    wrap.style.transition = 'opacity 0.3s ease';
+    wrap.style.opacity = '0';
+    setTimeout(function() {
+      wrap.style.display = 'none';
+      msg.style.display = 'block';
+      msg.style.opacity = '0';
+      msg.style.transition = 'opacity 0.3s ease';
+      setTimeout(function() { msg.style.opacity = '1'; }, 20);
+    }, 300);
+  }
+
+  function loyaltySubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('loyalty-email');
+    const success = document.getElementById('loyalty-success');
+    if (!input.value) return;
+    input.classList.add('fly-up');
+    success.classList.add('fly-up');
+  }
+
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.acc-btn').forEach(b => {
+      b.setAttribute('aria-expanded', 'false');
+      b.nextElementSibling.classList.remove('open');
+    });
+    if (!isOpen) {
+      btn.setAttribute('aria-expanded', 'true');
+      body.classList.add('open');
+    }
+  }
+
+  function switchTab(btn) {
+    document.querySelectorAll('.size-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function selectSize(btn) {
+    if (btn.classList.contains('out')) return;
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── COLOUR DATA ──
+  const colorData = {
+    'Core Black / Carbon / Carbon': { bg: '#111', images: [
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_02_standard_hover.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_03_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_04_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_05_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_06_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_09_standard.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_41_detail.avif',
+      'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_42_detail.avif'
+    ]},
+    'Cloud White / Silver Metallic / Zero Metalic': { bg: '#e8e4de', images: [
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM1.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM3_hover.tiff.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM4_hover.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM5.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM6.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM8.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM9.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM10.avif',
+      'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM11.avif'
+    ]},
+    'Cloud White / Clear Pink': { bg: '#f9e8ee', images: [
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_01_side.webp',
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_02_top.webp',
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_03_sole.webp',
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_04_front.webp',
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_05_back.webp',
+      'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_06_side2.webp'
+    ]}
+  };
+
+  let currentImages = colorData['Core Black / Carbon / Carbon'].images;
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderGallery('Core Black / Carbon / Carbon');
+  });
+
+  function renderGallery(colour) {
+    const data = colorData[colour];
+    if (!data) return;
+    currentImages = data.images;
+
+    const main = document.getElementById('gallery-main');
+    const src = currentImages[0];
+    if (src) {
+      main.innerHTML = '<img src="' + src + '" alt="' + colour + '">';
+    } else {
+      main.innerHTML = '<div class="gallery-placeholder" style="background:' + data.bg + ';"></div>';
+    }
+
+    const thumbsEl = document.getElementById('gallery-thumbs');
+    thumbsEl.innerHTML = currentImages.map((s, i) => {
+      const inner = s
+        ? '<img src="' + s + '" alt="' + colour + ' ' + (i+1) + '" style="width:100%;height:100%;object-fit:cover;">'
+        : '<div class="gallery-thumb-placeholder" style="background:' + data.bg + ';width:100%;height:100%;"></div>';
+      return '<div class="gallery-thumb' + (i === 0 ? ' active' : '') + '" data-index="' + i + '" onclick="selectThumb(this)">' + inner + '</div>';
+    }).join('');
+  }
+
+  function selectThumb(thumb) {
+    const idx = parseInt(thumb.dataset.index);
+    const colour = document.getElementById('colour-name').textContent;
+    const data = colorData[colour];
+    if (!data) return;
+
+    document.querySelectorAll('.gallery-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
+
+    const main = document.getElementById('gallery-main');
+    const src = data.images[idx];
+    if (src) {
+      main.innerHTML = '<img src="' + src + '" alt="">';
+    } else {
+      main.innerHTML = '<div class="gallery-placeholder" style="background:' + data.bg + ';"></div>';
+    }
+  }
+
+  document.querySelectorAll('.swatch').forEach(sw => {
+    const activate = () => {
+      document.querySelectorAll('.swatch').forEach(s => {
+        s.classList.remove('active');
+        s.setAttribute('aria-checked', 'false');
+      });
+      sw.classList.add('active');
+      sw.setAttribute('aria-checked', 'true');
+      const label = document.getElementById('colour-name');
+      if (label) label.textContent = sw.dataset.colour;
+      renderGallery(sw.dataset.colour);
+    };
+    sw.addEventListener('click', activate);
+    sw.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); activate(); } });
+  });
+
+  // ── ADD TO BAG ──
+  function addToBag() {
+    const colour = document.getElementById('colour-name').textContent;
+    const sizeBtn = document.querySelector('.size-btn.active');
+    const errEl = document.getElementById('size-error');
+    const btn = document.getElementById('btn-add-bag');
+
+    if (!sizeBtn) {
+      errEl.style.display = 'block';
+      btn.classList.add('shake');
+      setTimeout(function() { btn.classList.remove('shake'); }, 350);
+      return;
+    }
+    errEl.style.display = 'none';
+
+    if (typeof Cart !== 'undefined') {
+      Cart.add({
+        id: 'hyperboost-edge-' + colour + '-' + sizeBtn.textContent,
+        productId: 'hyperboost-edge',
+        name: 'HyperBoost Edge Running Shoes',
+        colour: colour,
+        size: sizeBtn.textContent,
+        price: 119.00,
+        image: colorData[colour].images[0]
+      });
+    }
+
+    showToast('Added to bag ✓');
+  }
+
+  function showToast(msg) {
+    var t = document.getElementById('add-toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2500);
+  }
+</script>
+
+<div class="toast" id="add-toast"></div>
+<script src="cart.js"></script>
+
+<script src="cookie-consent.js"></script>
+<script src="footer.js"></script>
+</body>
+</html>
