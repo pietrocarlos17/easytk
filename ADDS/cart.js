@@ -176,32 +176,27 @@ const CartDrawer = {
     const items = Cart.get().filter(function(i) { return i.variantId; });
     if (!items.length) return;
 
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = 'https://atonastore.com/cart/add';
+    // Adiciona cada item ao carrinho Shopify sequencialmente via fetch no-cors
+    // (form POST com items[][] não é suportado pelo endpoint /cart/add padrão)
+    var chain = Promise.resolve();
 
     items.forEach(function(item) {
-      const idEl = document.createElement('input');
-      idEl.type = 'hidden';
-      idEl.name = 'items[][id]';
-      idEl.value = item.variantId;
-      form.appendChild(idEl);
-
-      const qtyEl = document.createElement('input');
-      qtyEl.type = 'hidden';
-      qtyEl.name = 'items[][quantity]';
-      qtyEl.value = item.qty;
-      form.appendChild(qtyEl);
+      chain = chain.then(function() {
+        var body = new URLSearchParams();
+        body.append('id', item.variantId);
+        body.append('quantity', String(item.qty));
+        return fetch('https://atonastore.com/cart/add', {
+          method: 'POST',
+          mode: 'no-cors',
+          credentials: 'include',
+          body: body
+        });
+      });
     });
 
-    const ret = document.createElement('input');
-    ret.type = 'hidden';
-    ret.name = 'return_to';
-    ret.value = '/checkout';
-    form.appendChild(ret);
-
-    document.body.appendChild(form);
-    form.submit();
+    chain.then(function() {
+      window.location.href = 'https://atonastore.com/checkout';
+    });
   }
 };
 
