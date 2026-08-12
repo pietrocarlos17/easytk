@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <base href="/ADDS/">
+  <title>HyperBoost Edge Running Shoes | Adidas — Limited Release</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #000; background: #fff; -webkit-font-smoothing: antialiased; }
+
+    /* Promo bar */
+    .promo-bar { background: #000; color: #fff; text-align: center; font-size: 11px; font-weight: 700; padding: 8px 16px; letter-spacing: 1.2px; text-transform: uppercase; }
+
+    /* Sticky nav */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; border-bottom: 1px solid #e8e8e8;
+      position: sticky; top: 0; background: #fff; z-index: 200;
+    }
+    .nav-logo img { height: 32px; width: auto; display: block; }
+    .nav-cta {
+      background: #000; color: #fff; border: none; cursor: pointer;
+      font-family: inherit; font-size: 11px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase; padding: 10px 22px;
+    }
+    .nav-cta:hover { background: #222; }
+
+    /* Hero */
+    .hero { background: #111; display: flex; flex-direction: column; }
+    .hero-img-wrap { position: relative; width: 100%; aspect-ratio: 1/1; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center center; transition: opacity .4s ease; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.55) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 20px 20px 36px; color: #fff; background: #111; }
+    .hero-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; opacity: 0.65; margin-bottom: 12px; }
+    .hero-title { font-size: 40px; font-weight: 900; line-height: 1.0; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 22px; }
+    .hero-btn {
+      display: block; width: 100%;
+      background: #fff; color: #000; border: none; cursor: pointer;
+      font-family: inherit; font-size: 13px; font-weight: 700;
+      letter-spacing: 1.2px; text-transform: uppercase; padding: 17px;
+      margin-bottom: 16px;
+    }
+    .hero-btn:hover { background: #f0f0f0; }
+    .hero-proof { display: flex; align-items: center; gap: 8px; font-size: 12px; opacity: 0.88; }
+    .hero-stars { color: #FFD700; letter-spacing: 1px; }
+
+    /* Marquee */
+    .marquee-wrap { overflow: hidden; background: #f5f5f5; border-bottom: 1px solid #e8e8e8; padding: 10px 0; }
+    .marquee-track { display: flex; width: max-content; animation: marquee 20s linear infinite; white-space: nowrap; }
+    .marquee-track span { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 0 20px; color: #555; }
+    .marquee-track .dot { color: #aaa; padding: 0 4px; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* Gallery */
+    .gallery-main { width: 100%; aspect-ratio: 1/1; background: #f0f0f0; overflow: hidden; position: relative; }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-thumbs { display: flex; gap: 4px; padding: 8px 16px; overflow-x: auto; scrollbar-width: none; }
+    .gallery-thumbs::-webkit-scrollbar { display: none; }
+    .g-thumb { width: 58px; height: 58px; flex-shrink: 0; background: #f0f0f0; cursor: pointer; overflow: hidden; border: 2px solid transparent; }
+    .g-thumb.active { border-color: #000; }
+    .g-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Product info */
+    .product-info { padding: 20px 16px 0; }
+    .product-name { font-size: 17px; font-weight: 900; text-transform: uppercase; line-height: 1.2; margin-bottom: 3px; }
+    .product-ref { font-size: 11px; color: #888; margin-bottom: 18px; }
+
+    /* Color */
+    .field-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; color: #444; }
+    .swatch-row { display: flex; gap: 8px; align-items: center; margin-bottom: 18px; }
+    .lp-swatch {
+      width: 38px; height: 38px; border: 2px solid transparent;
+      cursor: pointer; overflow: hidden; flex-shrink: 0;
+      background-size: cover; background-position: center;
+    }
+    .lp-swatch.active { border-color: #000; }
+    .stock-pill { font-size: 10px; font-weight: 700; color: #b00; border: 1px solid #b00; padding: 3px 8px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+    /* Price */
+    .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+    .price-sale { font-size: 24px; font-weight: 900; }
+    .price-orig { font-size: 14px; color: #888; text-decoration: line-through; }
+    .price-pct { font-size: 12px; font-weight: 700; color: #b00; }
+
+    /* Free gift */
+    .free-gift {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: #f7f7f7; padding: 13px 12px; margin-bottom: 14px;
+      border-left: 3px solid #000;
+    }
+    .fg-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .fg-badge { display: inline-block; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; background: #000; color: #fff; padding: 2px 7px; margin-bottom: 4px; }
+    .fg-text { font-size: 12px; color: #444; line-height: 1.5; }
+
+    /* Scarcity */
+    .scarcity { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: #b00; margin-bottom: 16px; }
+    .scarcity-dot { width: 8px; height: 8px; border-radius: 50%; background: #b00; flex-shrink: 0; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* Sizes */
+    .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 14px; }
+    .size-btn {
+      border: 1px solid #d5d5d5; background: #fff;
+      padding: 10px 4px; font-size: 13px; font-weight: 700;
+      cursor: pointer; text-align: center; font-family: inherit;
+      transition: border-color .15s, background .15s;
+      line-height: 1.2;
+    }
+    .size-btn span { display: block; font-size: 9px; font-weight: 500; color: #999; margin-top: 2px; }
+    .size-btn.selected span { color: rgba(255,255,255,0.7); }
+    .size-btn:hover:not(.soldout) { border-color: #888; }
+    .size-btn.selected { border-color: #000; background: #000; color: #fff; }
+    .size-btn.soldout { color: #ccc; cursor: not-allowed; text-decoration: line-through; background: #fafafa; }
+    .size-btn.soldout span { color: #ddd; }
+    .size-guide-link { font-size: 11px; color: #555; text-decoration: underline; cursor: pointer; margin-bottom: 16px; display: inline-block; }
+
+    /* Add to bag */
+    .add-btn {
+      display: block; width: 100%; background: #444; color: #fff;
+      border: none; cursor: pointer; font-family: inherit; font-size: 13px;
+      font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 18px; margin-bottom: 14px; transition: background .2s;
+    }
+    .add-btn.ready { background: #000; }
+    .add-btn:hover.ready { background: #222; }
+
+    /* Trust */
+    .trust-row { display: flex; justify-content: space-around; padding: 13px 0; border-top: 1px solid #ebebeb; border-bottom: 1px solid #ebebeb; }
+    .trust-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 9px; font-weight: 700; color: #555; text-align: center; text-transform: uppercase; letter-spacing: 0.5px; }
+    .trust-item svg { width: 20px; height: 20px; stroke: #000; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Features */
+    .features { padding: 40px 16px; background: #fff; }
+    .section-eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #999; margin-bottom: 10px; }
+    .section-title { font-size: 26px; font-weight: 900; text-transform: uppercase; line-height: 1.08; margin-bottom: 30px; }
+    .feature-item { display: flex; gap: 16px; margin-bottom: 26px; }
+    .feature-num { font-size: 30px; font-weight: 900; color: #e5e5e5; flex-shrink: 0; line-height: 1; width: 38px; }
+    .feature-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 5px; }
+    .feature-desc { font-size: 12px; color: #555; line-height: 1.65; }
+
+    /* Reviews */
+    .reviews { background: #f7f7f7; padding: 40px 16px; }
+    .reviews-top { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 6px; }
+    .review-big-score { font-size: 56px; font-weight: 900; line-height: 1; }
+    .r-stars { display: flex; gap: 3px; margin-bottom: 4px; }
+    .r-star { color: #FFD700; font-size: 18px; }
+    .r-count { font-size: 11px; color: #888; }
+    .review-ai-box { background: #fff; border-left: 3px solid #000; padding: 13px; font-size: 12px; color: #444; line-height: 1.6; margin: 18px 0 16px; }
+    .review-ai-box strong { display: block; margin-bottom: 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+    .ugc-strip { overflow: hidden; margin: 0 -16px 20px; }
+    .ugc-track { display: flex; gap: 10px; width: max-content; animation: ugc-scroll 52s linear infinite; }
+    .ugc-card { position: relative; width: 170px; height: 230px; flex-shrink: 0; border-radius: 6px; overflow: hidden; }
+    .ugc-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .ugc-card-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 10px 10px; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%); }
+    .ugc-card-name { font-size: 12px; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 3px; }
+    .ugc-card-badge { font-size: 10px; color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 4px; }
+    .ugc-card-badge svg { flex-shrink: 0; }
+    @keyframes ugc-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .review-card { background: #fff; padding: 16px; margin-bottom: 10px; }
+    .rc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .rc-name { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+    .rc-verified { font-size: 10px; color: #444; border: 1px solid #ccc; border-radius: 20px; padding: 2px 8px; font-weight: 500; white-space: nowrap; }
+    .rc-colour { font-size: 10px; color: #888; margin-top: 1px; }
+    .rc-date { font-size: 10px; color: #aaa; }
+    .rc-mini-stars { display: flex; gap: 2px; margin-bottom: 6px; }
+    .rc-mini-star { color: #FFD700; font-size: 12px; }
+    .rc-heading { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+    .rc-text { font-size: 12px; color: #555; line-height: 1.55; }
+
+    /* Final CTA */
+    .final-cta { background: #000; color: #fff; padding: 48px 20px; text-align: center; }
+    .final-cta .section-eyebrow { color: rgba(255,255,255,0.45); }
+    .final-cta .section-title { color: #fff; margin-bottom: 8px; }
+    .final-cta-sub { font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 26px; }
+    .final-cta-btn {
+      display: block; width: 100%; background: #fff; color: #000;
+      border: none; cursor: pointer; font-family: inherit; font-size: 13px;
+      font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      padding: 18px; margin-bottom: 16px;
+    }
+    .final-cta-btn:hover { background: #f0f0f0; }
+    .final-cta-proof { font-size: 11px; color: rgba(255,255,255,0.5); }
+
+    footer { background: #000; }
+  </style>
+</head>
+<body>
+
+<div class="promo-bar">Free UK Delivery · Limited Stock</div>
+
+<nav class="nav">
+  <div><img src="logo.jpg" alt="Adidas" style="height:32px;width:auto;display:block;"></div>
+</nav>
+
+<nav style="padding:10px 16px 0;font-size:12px;color:#767677;display:flex;gap:4px;align-items:center;" aria-label="Breadcrumb">
+  <a href="home.html" style="color:#767677;text-decoration:none;">Home</a><span>/</span>
+  <span style="color:#767677;">Men</span><span>/</span>
+  <span>Shoes</span>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img-wrap">
+    <img class="hero-img" id="hero-img" src="images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif" alt="HyperBoost Edge Running Shoes">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">HyperBoost Pro Foam · Limited 2025 Release</p>
+    <h1 class="hero-title">Run Further.<br>Feel Nothing.</h1>
+    <button class="hero-btn" onclick="scrollToSize()">Get Your Pair — £109.00</button>
+    <div class="hero-proof">
+      <span class="hero-stars">★★★★★</span>
+      <span>4.9 · 24 Reviews · Free UK Delivery</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>HyperBoost Edge</span><span class="dot">✦</span><span>HyperBoost Pro Foam</span><span class="dot">✦</span><span>Limited Release 2025</span><span class="dot">✦</span><span>Free UK Delivery</span><span class="dot">✦</span><span>Rated 4.9 Stars</span><span class="dot">✦</span><span>30-Day Returns</span><span class="dot">✦</span>
+    <span>HyperBoost Edge</span><span class="dot">✦</span><span>HyperBoost Pro Foam</span><span class="dot">✦</span><span>Limited Release 2025</span><span class="dot">✦</span><span>Free UK Delivery</span><span class="dot">✦</span><span>Rated 4.9 Stars</span><span class="dot">✦</span><span>30-Day Returns</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- PRODUCT SECTION -->
+<section>
+  <div class="gallery-main">
+    <img id="main-img" src="images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif" alt="HyperBoost Edge">
+  </div>
+  <div class="gallery-thumbs" id="thumbs"></div>
+
+  <div class="product-info">
+    <h2 class="product-name">HyperBoost Edge Running Shoes</h2>
+    <p class="product-ref" id="product-ref">HyperBoost Pro Foam · Ref: KI0357</p>
+
+    <!-- Colour -->
+    <p class="field-label">Colour — <strong id="colour-name">Core Black / Carbon / Carbon</strong></p>
+    <div class="swatch-row">
+      <div class="lp-swatch active" id="swatch-black" title="Core Black / Carbon / Carbon"
+        style="background-image:url('images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif')"
+        onclick="selectColour('black')"></div>
+      <div class="lp-swatch" id="swatch-white" title="Cloud White / Silver Metallic / Zero Metalic"
+        style="background-image:url('images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM1.avif')"
+        onclick="selectColour('white')"></div>
+      <div class="lp-swatch" id="swatch-pink" title="Cloud White / Pink"
+        style="background-image:url('images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_01_side.webp')"
+        onclick="selectColour('pink')"></div>
+      <span class="stock-pill" id="stock-pill">Low Stock</span>
+    </div>
+
+    <!-- Price -->
+    <div class="price-row">
+      <span class="price-sale">£109.00</span>
+      <span class="price-orig">£170.00</span>
+      <span class="price-pct">-25%</span>
+    </div>
+
+    <!-- Scarcity -->
+    <div class="scarcity">
+      <span class="scarcity-dot"></span>
+      <span id="scarcity-text">Only 4 pairs left — selling fast</span>
+    </div>
+
+    <!-- Sizes -->
+    <div id="size-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <p class="field-label" style="margin:0;">Size (UK)</p>
+        <span class="size-guide-link">Size Guide</span>
+      </div>
+      <div class="size-grid" id="size-grid"></div>
+    </div>
+
+    <button class="add-btn" id="add-btn" onclick="handleAddToBag()">Select a Size to Add to Bag</button>
+
+    <!-- Trust -->
+    <div class="trust-row">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M16 7l5 5-5 5"/></svg>
+        Free<br>Delivery
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        Ships<br>in 48h
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        30-Day<br>Returns
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure<br>Payment
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features">
+  <p class="section-eyebrow">About the Shoe</p>
+  <h2 class="section-title">What Makes the HyperBoost Edge Different:</h2>
+
+  <div class="feature-item">
+    <span class="feature-num">01</span>
+    <div>
+      <p class="feature-title">HyperBoost Pro Foam Technology</p>
+      <p class="feature-desc">Our most responsive midsole yet. HyperBoost Pro Foam absorbs impact and returns energy with every stride — engineered for runners who need more from every kilometre.</p>
+    </div>
+  </div>
+  <div class="feature-item">
+    <span class="feature-num">02</span>
+    <div>
+      <p class="feature-title">Carbon-Infused Outsole</p>
+      <p class="feature-desc">Stability under pressure without the weight penalty. The carbon-reinforced sole keeps your foot locked and propulsive whether you're sprinting intervals or running long distance.</p>
+    </div>
+  </div>
+  <div class="feature-item">
+    <span class="feature-num">03</span>
+    <div>
+      <p class="feature-title">Seamless Precision Fit</p>
+      <p class="feature-desc">A zero-friction upper that wraps your foot like a second skin. Light enough to forget, supportive enough to trust — run further than you thought possible from day one.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="reviews-top">
+    <span class="review-big-score">4.9</span>
+    <div>
+      <div class="r-stars">
+        <span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span><span class="r-star">★</span>
+      </div>
+      <p class="r-count">24 Verified Reviews</p>
+    </div>
+  </div>
+
+  <div class="review-ai-box">
+    <strong>What runners are saying:</strong>
+    True to size · No break-in needed · Energy return noticeably better than previous shoes · Great grip on wet pavement · Lighter than expected
+  </div>
+
+  <div class="ugc-strip">
+    <div class="ugc-track">
+      <div class="ugc-card"><img src="images/reviews/ugc-1.png" alt="Sarah M."><div class="ugc-card-overlay"><p class="ugc-card-name">Sarah M.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-2.png" alt="Emma R."><div class="ugc-card-overlay"><p class="ugc-card-name">Emma R.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-3.png" alt="Miguel A."><div class="ugc-card-overlay"><p class="ugc-card-name">Miguel A.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-4.png" alt="Sofia L."><div class="ugc-card-overlay"><p class="ugc-card-name">Sofia L.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-5.png" alt="Daniel K."><div class="ugc-card-overlay"><p class="ugc-card-name">Daniel K.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-6.jpg" alt="Anna P."><div class="ugc-card-overlay"><p class="ugc-card-name">Anna P.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-7.jpg" alt="James T."><div class="ugc-card-overlay"><p class="ugc-card-name">James T.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-1.png" alt="Sarah M."><div class="ugc-card-overlay"><p class="ugc-card-name">Sarah M.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-2.png" alt="Emma R."><div class="ugc-card-overlay"><p class="ugc-card-name">Emma R.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-3.png" alt="Miguel A."><div class="ugc-card-overlay"><p class="ugc-card-name">Miguel A.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-4.png" alt="Sofia L."><div class="ugc-card-overlay"><p class="ugc-card-name">Sofia L.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-5.png" alt="Daniel K."><div class="ugc-card-overlay"><p class="ugc-card-name">Daniel K.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-6.jpg" alt="Anna P."><div class="ugc-card-overlay"><p class="ugc-card-name">Anna P.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+      <div class="ugc-card"><img src="images/reviews/ugc-7.jpg" alt="James T."><div class="ugc-card-overlay"><p class="ugc-card-name">James T.</p><p class="ugc-card-badge"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="5.5" fill="rgba(255,255,255,0.25)"/><path d="M3 5.5l1.8 1.8 3.2-3.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>Verified Purchase</p></div></div>
+    </div>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Sarah M. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Core Black / Carbon</p>
+      </div>
+      <p class="rc-date">3 days ago</p>
+    </div>
+    <p class="rc-heading">Didn't expect to be this impressed</p>
+    <p class="rc-text">Went back and forth on the price for weeks before ordering. So glad I did — my knees have barely ached after three 10ks, which is huge for me. Went with my usual 6 and the fit was spot on.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Miguel A. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Core Black / Carbon</p>
+      </div>
+      <p class="rc-date">5 days ago</p>
+    </div>
+    <p class="rc-heading">Better than expected</p>
+    <p class="rc-text">Got these for the gym and ended up using them for proper runs. Grip on wet ground is actually really solid. Came packaged nicely, nothing damaged. I'd honestly get another colour just to have a second pair.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Emma R. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Core Black / Carbon</p>
+      </div>
+      <p class="rc-date">1 week ago</p>
+    </div>
+    <p class="rc-heading">Running my first half in these</p>
+    <p class="rc-text">Switched to these 3 weeks into training. First run I had a tiny rub on my left heel, but it completely went after that. Now they feel like they were made for me. Delivery was here faster than I expected.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Sofia L. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Cloud White / Clear Pink</p>
+      </div>
+      <p class="rc-date">4 days ago</p>
+    </div>
+    <p class="rc-heading">Colour is even nicer in real life</p>
+    <p class="rc-text">Spotted these on someone at my gym and had to track them down. Wore them the same day they arrived, went straight to a 5k. Not even sore the next day. My sister is already asking me to order her a pair.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Daniel K. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Cloud White / Clear Pink</p>
+      </div>
+      <p class="rc-date">2 weeks ago</p>
+    </div>
+    <p class="rc-heading">She loves them</p>
+    <p class="rc-text">My girlfriend had been dropping hints about these for a while so I just ordered them. Arrived in 2 days. She says they're the most comfortable she's had, and she's pretty picky about shoes. Safe to say I got it right.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">James T. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Cloud White / Silver</p>
+      </div>
+      <p class="rc-date">1 week ago</p>
+    </div>
+    <p class="rc-heading">Noticeable difference from my old pair</p>
+    <p class="rc-text">Was in Hokas before and the weight difference is immediately obvious. Three weeks of daily runs in the white pair and they're still looking clean. Only thing — laces come undone on longer runs but that's minor. Really happy with them.</p>
+  </div>
+
+  <div class="review-card">
+    <div class="rc-mini-stars"><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span><span class="rc-mini-star">★</span></div>
+    <div class="rc-top">
+      <div>
+        <p class="rc-name">Anna P. <span class="rc-verified">✓ Verified Purchase</span></p>
+        <p class="rc-colour">Colour: Cloud White / Silver</p>
+      </div>
+      <p class="rc-date">3 weeks ago</p>
+    </div>
+    <p class="rc-heading">Review after actually using them for a while</p>
+    <p class="rc-text">Bought these a few months ago and wanted to wait before reviewing. Running about 40k a week in them. Sole is still solid, no wear I can notice. A bit of creasing on the upper which is to be expected. Would buy again no question.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <p class="section-eyebrow">Limited Stock · 2025 Release</p>
+  <h2 class="section-title">Ready to Run Further?</h2>
+  <p class="final-cta-sub">Join 24 runners who already made the switch.</p>
+  <button class="final-cta-btn" onclick="scrollToSize()">Get Your Pair — £109.00</button>
+  <p class="final-cta-proof">★★★★★ 4.9 · Free UK Delivery · 30-Day Returns</p>
+</section>
+
+<footer style="background:#000;padding:18px 16px;text-align:center;">
+  <p style="font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:0.5px;">© 2025 Adidas. All rights reserved.</p>
+</footer>
+
+<script src="cart.js"></script>
+<script>
+  const colours = {
+    black: {
+      name: 'Core Black / Carbon / Carbon',
+      ref: 'KI0357',
+      stock: 4,
+      variants: {36:'60360788967758',37:'60360789000526',38:'60360789033294',39:'60360789066062',40:'60360789098830',41:'60360789131598',42:'60360789164366',43:'60360789197134',44:'60360789229902',45:'60360789262670'},
+      imgs: [
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_01_00_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_02_standard_hover.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_03_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_04_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_05_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_06_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_09_standard.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_41_detail.avif',
+        'images/hyperboost-edge/core-black/HYPERBOOST_EDGE_Running_Shoes_Black_KI0357_42_detail.avif',
+      ]
+    },
+    white: {
+      name: 'Cloud White / Silver Metallic / Zero Metalic',
+      ref: 'KI4426',
+      stock: 7,
+      variants: {36:'60360789557582',37:'60360789590350',38:'60360789623118',39:'60360789655886',40:'60360789688654',41:'60360789721422',42:'60360789754190',43:'60360789786958',44:'60360789819726',45:'60360789852494'},
+      imgs: [
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM1.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM3_hover.tiff.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM4_hover.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM5.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM6.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM8.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM9.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM10.avif',
+        'images/hyperboost-edge/cloud-white/HYPERBOOST_EDGE_Running_Shoes_White_KI4426_HM11.avif',
+      ]
+    },
+    pink: {
+      name: 'Cloud White / Clear Pink',
+      ref: 'IF9359',
+      stock: 3,
+      variants: {36:'60360790344014',37:'60360790376782',38:'60360790409550',39:'60360790442318',40:'60360790475086',41:'60360790507854',42:'60360790540622',43:'60360790573390',44:'60360790606158',45:'60360790638926'},
+      imgs: [
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_01_side.webp',
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_02_top.webp',
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_03_sole.webp',
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_04_front.webp',
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_05_back.webp',
+        'images/hyperboost-edge/cloud-white-pink/HYPERBOOST_EDGE_Pink_06_side2.webp',
+      ]
+    }
+  };
+
+  const sizes = [
+    {eu: 36, uk: '3.5', stock: 3}, {eu: 37, uk: '4',   stock: 2},
+    {eu: 38, uk: '5',   stock: 4}, {eu: 39, uk: '6',   stock: 1},
+    {eu: 40, uk: '6.5', stock: 2}, {eu: 41, uk: '7.5', stock: 3},
+    {eu: 42, uk: '8',   stock: 2}, {eu: 43, uk: '9',   stock: 1},
+    {eu: 44, uk: '9.5', stock: 3}, {eu: 45, uk: '10.5', stock: 2},
+  ];
+  const soldOut = [];
+  let selectedSize = null;
+  let currentKey = 'black';
+
+  function buildThumbs(key) {
+    const el = document.getElementById('thumbs');
+    el.innerHTML = '';
+    colours[key].imgs.forEach((src, i) => {
+      const d = document.createElement('div');
+      d.className = 'g-thumb' + (i === 0 ? ' active' : '');
+      d.innerHTML = '<img src="' + src + '" alt="">';
+      d.onclick = function() {
+        document.getElementById('main-img').src = src;
+        el.querySelectorAll('.g-thumb').forEach(t => t.classList.remove('active'));
+        d.classList.add('active');
+      };
+      el.appendChild(d);
+    });
+  }
+
+  function buildSizes() {
+    const grid = document.getElementById('size-grid');
+    grid.innerHTML = '';
+    selectedSize = null;
+    updateAddBtn();
+    sizes.forEach(function(sz) {
+      const b = document.createElement('button');
+      const isSold = soldOut.includes(sz.eu);
+      b.className = 'size-btn' + (isSold ? ' soldout' : '');
+      b.textContent = 'UK ' + sz.uk;
+      b.disabled = isSold;
+      b.onclick = function() {
+        if (isSold) return;
+        grid.querySelectorAll('.size-btn').forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected');
+        selectedSize = sz;
+        updateAddBtn();
+        document.getElementById('scarcity-text').textContent =
+          'Only ' + sz.stock + ' pair' + (sz.stock === 1 ? '' : 's') + ' left in this size — order now';
+      };
+      grid.appendChild(b);
+    });
+  }
+
+  function updateAddBtn() {
+    const btn = document.getElementById('add-btn');
+    if (selectedSize) {
+      btn.textContent = 'Add to Bag — UK ' + selectedSize.uk + ' · £109.00';
+      btn.classList.add('ready');
+    } else {
+      btn.textContent = 'Select a Size to Add to Bag';
+      btn.classList.remove('ready');
+    }
+  }
+
+  function selectColour(key) {
+    currentKey = key;
+    const c = colours[key];
+    document.getElementById('colour-name').textContent = c.name;
+    document.getElementById('product-ref').textContent = 'HyperBoost Pro Foam · Ref: ' + c.ref;
+    document.getElementById('main-img').src = c.imgs[0];
+    document.getElementById('hero-img').src = c.imgs[0];
+    document.getElementById('scarcity-text').textContent = 'Only ' + c.stock + ' pairs left — selling fast';
+    document.querySelectorAll('.lp-swatch').forEach(s => s.classList.remove('active'));
+    document.getElementById('swatch-' + key).classList.add('active');
+    buildThumbs(key);
+    buildSizes();
+  }
+
+  function scrollToSize() {
+    document.getElementById('size-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function handleAddToBag() {
+    if (!selectedSize) { scrollToSize(); return; }
+    const variantId = colours[currentKey].variants[selectedSize.eu];
+    Cart.add({
+      id: 'hyperboost-' + currentKey + '-' + selectedSize.eu,
+      variantId: variantId,
+      name: 'ADIDAS HyperBoost Edge',
+      colour: currentKey.charAt(0).toUpperCase() + currentKey.slice(1),
+      size: 'UK ' + selectedSize.uk,
+      price: 109.00,
+      image: colours[currentKey].imgs[0] || null
+    });
+    CartDrawer.open();
+  }
+
+  buildThumbs('black');
+  buildSizes();
+
+  (function() {
+    var heroSlides = [colours.black.imgs[0], colours.white.imgs[0]];
+    var heroIdx = 0;
+    setInterval(function() {
+      if (currentKey !== 'black' && currentKey !== 'white') return;
+      var img = document.getElementById('hero-img');
+      img.style.opacity = '0';
+      setTimeout(function() {
+        heroIdx = (heroIdx + 1) % heroSlides.length;
+        img.src = heroSlides[heroIdx];
+        img.style.opacity = '1';
+      }, 400);
+    }, 6000);
+  })();
+</script>
+<script src="cookie-consent.js"></script>
+</body>
+</html>
