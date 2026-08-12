@@ -173,11 +173,35 @@ const CartDrawer = {
   },
 
   checkout() {
-    const items = Cart.get();
-    const parts = items.filter(function(i) { return i.variantId; }).map(function(i) { return i.variantId + ':' + i.qty; });
-    if (parts.length) {
-      window.location.href = 'https://atonastore.com/cart/' + parts.join(',');
-    }
+    const items = Cart.get().filter(function(i) { return i.variantId; });
+    if (!items.length) return;
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = 'https://atonastore.com/cart/add';
+
+    items.forEach(function(item) {
+      const idEl = document.createElement('input');
+      idEl.type = 'hidden';
+      idEl.name = 'items[][id]';
+      idEl.value = item.variantId;
+      form.appendChild(idEl);
+
+      const qtyEl = document.createElement('input');
+      qtyEl.type = 'hidden';
+      qtyEl.name = 'items[][quantity]';
+      qtyEl.value = item.qty;
+      form.appendChild(qtyEl);
+    });
+
+    const ret = document.createElement('input');
+    ret.type = 'hidden';
+    ret.name = 'return_to';
+    ret.value = '/checkout';
+    form.appendChild(ret);
+
+    document.body.appendChild(form);
+    form.submit();
   }
 };
 
